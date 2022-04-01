@@ -8,6 +8,7 @@ class BottomButtonWithFees extends StatelessWidget {
   var height;
   String fees;
   String buttonName;
+  Function() onButtonTap;
 
   BottomButtonWithFees({
     Key? key,
@@ -15,6 +16,7 @@ class BottomButtonWithFees extends StatelessWidget {
     required this.height,
     required this.fees,
     required this.buttonName,
+    required this.onButtonTap,
   }) : super(key: key);
 
   @override
@@ -47,9 +49,7 @@ class BottomButtonWithFees extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {
-                Get.to(() => const BookingDetails());
-              },
+              onTap: onButtonTap,
               child: Container(
                 width: width * 0.5,
                 height: height * 0.08,

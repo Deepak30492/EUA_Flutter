@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/appoinment_details/src/appointment_details_page.dart';
-import 'package:uhi_eua_flutter_app/view/discovery/discovery.dart';
+import 'package:uhi_eua_flutter_app/view/view.dart';
 
 class LoginPage extends StatefulWidget {
   static const String routeName = "LoginPage";

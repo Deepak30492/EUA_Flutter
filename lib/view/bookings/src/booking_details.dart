@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
+import 'package:uhi_eua_flutter_app/view/view.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class BookingDetails extends StatefulWidget {
@@ -299,6 +300,9 @@ class _BookingDetailsState extends State<BookingDetails> {
         height: height,
         fees: "₹ 500",
         buttonName: "Pay",
+        onButtonTap: () {
+          Get.to(() => AppointmentDetailsPage());
+        },
       ),
     );
   }

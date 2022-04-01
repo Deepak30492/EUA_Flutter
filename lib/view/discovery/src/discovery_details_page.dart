@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/fulfillment_details/fulfillment_details.dart';
+import 'package:uhi_eua_flutter_app/view/fulfillments/fulfillments.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class DiscoveryDetailsPage extends StatefulWidget {

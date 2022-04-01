@@ -198,6 +198,9 @@ class _FulfillmentDetailsPageState extends State<FulfillmentDetailsPage> {
         height: height,
         fees: "₹ 500",
         buttonName: "Book An Appointment",
+        onButtonTap: () {
+          Get.to(() => const BookingDetails());
+        },
       ),
     );
   }
