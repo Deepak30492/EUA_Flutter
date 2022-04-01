@@ -28,7 +28,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
         backgroundColor: AppColors.white,
         shadowColor: Colors.black.withOpacity(0.1),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           color: Colors.black,
           onPressed: () {},
         ),
@@ -60,6 +60,8 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             color: Colors.white,
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
+              theme: ExpandableThemeData(
+                  iconColor: AppColors.primaryLightBlue007BFF),
               header: const Padding(
                 padding: EdgeInsets.fromLTRB(8, 12, 8, 8),
                 child: Text(
@@ -84,7 +86,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
                           Text(
-                            'Date Time ',
+                            'Date Time',
                             style: TextStyle(
                                 color: AppColors.textColor,
                                 fontWeight: FontWeight.w500,
@@ -92,7 +94,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                                 fontStyle: FontStyle.normal,
                                 fontSize: 13.0),
                           ),
-                          SizedBox(width: 8),
+                          SizedBox(width: 6),
                           Text(
                             '14th April 2022, 09:00 AM to 10:00 AM',
                             style: TextStyle(
@@ -171,6 +173,8 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             color: Colors.white,
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
+              theme: ExpandableThemeData(
+                  iconColor: AppColors.primaryLightBlue007BFF),
               header: const Padding(
                 padding: EdgeInsets.fromLTRB(8, 12, 8, 8),
                 child: Text(
@@ -282,6 +286,8 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             color: Colors.white,
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
+              theme: ExpandableThemeData(
+                  iconColor: AppColors.primaryLightBlue007BFF),
               header: const Padding(
                 padding: EdgeInsets.fromLTRB(8, 12, 8, 8),
                 child: Text(
@@ -369,6 +375,8 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             color: Colors.white,
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
+              theme: ExpandableThemeData(
+                  iconColor: AppColors.primaryLightBlue007BFF),
               header: const Padding(
                 padding: EdgeInsets.fromLTRB(8, 12, 8, 8),
                 child: Text(
