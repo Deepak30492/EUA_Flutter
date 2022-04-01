@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
+import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class SearchLocation extends StatefulWidget {
   const SearchLocation({Key? key}) : super(key: key);
@@ -23,39 +25,79 @@ class _SearchLocationState extends State<SearchLocation> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.chevron_left_rounded,
-          color: AppColors.greyHint828282,
-          size: 30,
-        ),
         backgroundColor: AppColors.white,
+        shadowColor: Colors.black.withOpacity(0.1),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.chevron_left_rounded,
+            color: AppColors.darkGrey323232,
+            size: 32,
+          ),
+        ),
+        titleSpacing: 0,
         title: Container(
-          child: Container(
-            width: width * 0.9,
-            padding: const EdgeInsets.only(left: 20, top: 10),
-            child: TextField(
-              // controller: _textEditingController,
-              style: AppTextStyle.textFieldTextStyle,
-              decoration: InputDecoration(
-                border: const UnderlineInputBorder(),
-                enabledBorder: const UnderlineInputBorder(),
-                focusedBorder: const UnderlineInputBorder(),
-                hintText: "Search location",
-                hintStyle: AppTextStyle.textFieldHintTextStyle,
-                contentPadding: const EdgeInsets.only(top: 10, left: 10),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 5),
-                  child: Icon(
-                    Icons.place_outlined,
-                    color: AppColors.grey8B8B8B,
-                    size: 20,
-                  ),
-                ),
-                prefixIconConstraints:
-                    const BoxConstraints(maxWidth: 30, maxHeight: 10),
-              ),
+          width: width * 0.9,
+          padding: const EdgeInsets.only(left: 20),
+          child: TextField(
+            // controller: _textEditingController,
+            style: AppTextStyle.textFieldTextStyle,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: "Search location",
+              hintStyle: AppTextStyle.textFieldHintTextStyle,
             ),
           ),
+        ),
+        bottom: const AppbarBottomLine(),
+      ),
+      body: Container(
+        width: width,
+        height: height,
+        color: AppColors.backgroundWhiteColorFBFCFF,
+        child: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  border: Border(
+                bottom: BorderSide(
+                  width: 0.5,
+                  color: AppColors.greyDDDDDD,
+                ),
+              )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.place_outlined,
+                    color: AppColors.greyDDDDDD,
+                    size: 20,
+                  ),
+                  Spacing(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Pune",
+                        style: AppTextStyle.subHeading3TextStyle,
+                      ),
+                      Spacing(size: 5, isWidth: false),
+                      Text(
+                        "Pune, Maharashtra",
+                        style: AppTextStyle.subHeading3LightGreyTextStyle,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

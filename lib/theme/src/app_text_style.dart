@@ -55,10 +55,46 @@ class AppTextStyle {
         fontSize: 14,
       );
 
+  static get subHeading3LightGreyTextStyle => GoogleFonts.inter(
+        color: AppColors.grey787878,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      );
+
   static get subHeading4TextStyle => GoogleFonts.openSans(
         color: AppColors.grey8B8B8B,
         fontWeight: FontWeight.w400,
         fontSize: 12,
+      );
+
+  static get subHeading4DarkTextStyle => GoogleFonts.openSans(
+        color: AppColors.darkGrey363636,
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      );
+
+  static get subHeading4SemiBoldTextStyle => GoogleFonts.openSans(
+        color: AppColors.grey787878,
+        fontWeight: FontWeight.w600,
+        fontSize: 12,
+      );
+
+  static get subHeading4PrimaryColorSemiBoldTextStyle => GoogleFonts.openSans(
+        color: AppColors.primaryLightBlue007BFF,
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
+      );
+
+  static get infoSemiBoldTextStyle => GoogleFonts.openSans(
+        color: AppColors.darkGrey363636,
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      );
+
+  static get infoWhiteSemiBoldTextStyle => GoogleFonts.openSans(
+        color: AppColors.white,
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
       );
 
   static get subHeading5TextStyle => GoogleFonts.openSans(
@@ -105,5 +141,71 @@ class AppTextStyle {
         color: AppColors.black,
         fontWeight: FontWeight.w400,
         fontSize: 12,
+      );
+
+  ///DOCTOR NAME
+  static get doctorNameSmallTextStyle => GoogleFonts.inter(
+        color: AppColors.black,
+        fontWeight: FontWeight.w500,
+        fontSize: 12,
+      );
+
+  ///DOCTOR NAME
+  static get doctorNameBigTextStyle => GoogleFonts.inter(
+        color: AppColors.black,
+        fontWeight: FontWeight.w600,
+        fontSize: 16,
+      );
+
+  ///HOSPITAL NAME
+  static get hospitalNameSmallTextStyle => GoogleFonts.openSans(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 10,
+      );
+  static get hospitalNameBigTextStyle => GoogleFonts.openSans(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      );
+
+  ///LOCATION DISTANCE
+  static get locationDistanceSmallTextStyle => GoogleFonts.openSans(
+        color: AppColors.black,
+        fontWeight: FontWeight.w600,
+        fontSize: 10,
+      );
+  static get locationDistanceBigTextStyle => GoogleFonts.openSans(
+        color: AppColors.black,
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      );
+
+  ///VERY SMALL HEADING
+  static get verySmallHeadingTextStyle => GoogleFonts.openSans(
+        color: AppColors.black,
+        fontWeight: FontWeight.w600,
+        fontSize: 8,
+      );
+
+  ///TIME
+  static get timeTextStyle => GoogleFonts.openSans(
+        color: AppColors.black,
+        fontWeight: FontWeight.w600,
+        fontSize: 12,
+      );
+
+  ///PRICE
+  static get priceTextStyle => GoogleFonts.openSans(
+        color: AppColors.secondaryOrangeFF8A07,
+        fontWeight: FontWeight.w600,
+        fontSize: 20,
+      );
+
+  ///TEXT BUTTON
+  static get textButtonTextStyle => GoogleFonts.openSans(
+        color: AppColors.primaryLightBlue007BFF,
+        fontWeight: FontWeight.w600,
+        fontSize: 16,
       );
 }
