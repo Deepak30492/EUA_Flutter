@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
+import 'package:uhi_eua_flutter_app/view/appoinment_details/src/appointment_details_page.dart';
 import 'package:uhi_eua_flutter_app/view/discovery/discovery.dart';
 
 class LoginPage extends StatefulWidget {
@@ -74,12 +75,11 @@ class LoginPageState extends State<LoginPage> {
                             border: Border.all(color: Colors.grey)),
                         child: Row(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.account_circle_outlined,
-                                size: 32,
-                              ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(Icons.person_outlined,
+                                  size: 24,
+                                  color: AppColors.primaryLightBlue007BFF),
                             ),
                             SizedBox(
                               width: width * 0.6,
@@ -126,12 +126,11 @@ class LoginPageState extends State<LoginPage> {
                             border: Border.all(color: Colors.grey)),
                         child: Row(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.lock_open,
-                                size: 32,
-                              ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(Icons.vpn_key,
+                                  size: 24,
+                                  color: AppColors.primaryLightBlue007BFF),
                             ),
                             SizedBox(
                               width: width * 0.75,
@@ -182,37 +181,33 @@ class LoginPageState extends State<LoginPage> {
           Center(
             child: InkWell(
               child: Container(
-                margin: const EdgeInsets.only(top: 40),
-                width: 140,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+                width: width * 0.95,
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: Color.fromARGB(156, 156, 224, 254)),
+                    color: AppColors.primaryLightBlue007BFF),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
-                        "LOG IN",
+                        "Login",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: "Poppins",
-                          fontSize: 14.0,
+                          fontSize: 18.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
-                      ),
-                      Icon(
-                        Icons.chevron_right,
-                        size: 30,
-                        color: Colors.white,
                       ),
                     ],
                   ),
                 ),
               ),
               onTap: () {
-                Get.offAll(const DiscoverDoctorPage());
+                Get.offAll(const AppointmentDetailsPage());
               },
             ),
           ),

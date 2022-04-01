@@ -41,6 +41,7 @@ dependencies:
   jiffy: ^5.0.0
   uuid: ^3.0.6
   upi_india: ^3.0.1
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

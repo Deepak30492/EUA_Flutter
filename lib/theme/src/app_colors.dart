@@ -13,7 +13,11 @@ class AppColors {
 
   static const Color _lightThemeWhiteColor = Color(0xFFFFFFFF);
 
+  static const Color innerBoxColor = Color(0xFFDDDDDD);
+  static const Color textColor = Color(0xFF363636);
   static const Color _darkThemeWhiteColor = Colors.red;
+  static const Color confirmTextColor = Color(0xFF00CC39);
+  static const Color linkTextColor = Color(0xFF0052CC);
 
   ///Black
   static get black => themeModeController.themeMode
