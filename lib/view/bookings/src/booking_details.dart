@@ -179,10 +179,13 @@ class _BookingDetailsState extends State<BookingDetails> {
                                   size: 20,
                                 ),
                                 Spacing(),
-                                Text(
-                                  "8502 Preston Rd. Inglewood, Maine 98380",
-                                  style: AppTextStyle.subHeading4DarkTextStyle,
-                                  overflow: TextOverflow.ellipsis,
+                                Expanded(
+                                  child: Text(
+                                    "8502 Preston Rd. Inglewood, Maine 98380",
+                                    style:
+                                        AppTextStyle.subHeading4DarkTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ],
                             ),
