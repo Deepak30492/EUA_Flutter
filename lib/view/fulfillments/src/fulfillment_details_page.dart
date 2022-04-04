@@ -164,13 +164,31 @@ class _FulfillmentDetailsPageState extends State<FulfillmentDetailsPage> {
                                   color: AppColors.primaryLightBlue007BFF,
                                 )),
                                 child: SfDateRangePicker(
+                                  headerHeight: 60,
+                                  view: DateRangePickerView.month,
                                   backgroundColor: AppColors.white,
                                   selectionMode:
                                       DateRangePickerSelectionMode.single,
                                   showNavigationArrow: true,
                                   selectionShape:
                                       DateRangePickerSelectionShape.rectangle,
-                                  selectionRadius: 0,
+                                  selectionTextStyle:
+                                      AppTextStyle.infoWhiteSemiBoldTextStyle,
+                                  selectionColor:
+                                      AppColors.primaryLightBlue007BFF,
+                                  headerStyle: DateRangePickerHeaderStyle(
+                                    textStyle: AppTextStyle.heading3TextStyle,
+                                  ),
+                                  monthViewSettings:
+                                      DateRangePickerMonthViewSettings(
+                                    showTrailingAndLeadingDates: true,
+                                    firstDayOfWeek: 1,
+                                    viewHeaderStyle:
+                                        DateRangePickerViewHeaderStyle(
+                                      textStyle:
+                                          AppTextStyle.subHeading4DarkTextStyle,
+                                    ),
+                                  ),
                                   monthCellStyle: DateRangePickerMonthCellStyle(
                                     cellDecoration: BoxDecoration(
                                       shape: BoxShape.rectangle,
@@ -179,6 +197,8 @@ class _FulfillmentDetailsPageState extends State<FulfillmentDetailsPage> {
                                         color: AppColors.greyDDDDDD,
                                       ),
                                     ),
+                                    todayTextStyle: AppTextStyle
+                                        .subHeading4PrimaryColorSemiBoldTextStyle,
                                   ),
                                   initialSelectedDate: DateTime.now(),
                                 ),
