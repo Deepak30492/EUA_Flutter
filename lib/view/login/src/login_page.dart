@@ -43,7 +43,7 @@ class LoginPageState extends State<LoginPage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Container(
-      decoration: BoxDecoration(color: AppColors.white),
+      decoration: BoxDecoration(color: AppColors.loginBackgroundColor),
       width: width,
       height: height,
       child: Column(
@@ -70,9 +70,10 @@ class LoginPageState extends State<LoginPage> {
                       Container(
                         height: 50,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey)),
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white,
+                          //border: Border.all(color: Colors.grey)
+                        ),
                         child: Row(
                           children: [
                             Padding(
@@ -121,9 +122,10 @@ class LoginPageState extends State<LoginPage> {
                       Container(
                         height: 50,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey)),
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white,
+                          //border: Border.all(color: Colors.grey)
+                        ),
                         child: Row(
                           children: [
                             Padding(

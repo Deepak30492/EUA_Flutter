@@ -18,6 +18,7 @@ class AppColors {
   static const Color _darkThemeWhiteColor = Colors.red;
   static const Color confirmTextColor = Color(0xFF00CC39);
   static const Color linkTextColor = Color(0xFF0052CC);
+  static const Color loginBackgroundColor = Color.fromARGB(255, 245, 247, 252);
 
   ///Black
   static get black => themeModeController.themeMode
