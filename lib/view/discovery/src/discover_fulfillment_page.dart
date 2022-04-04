@@ -205,9 +205,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
                         ),
                         space(size: 20, isWidth: false),
                         InkWell(
-                          onTap: () {
-                            Get.to(const SearchLocation());
-                          },
+                          onTap: () {},
                           child: Center(
                             child: Container(
                               width: width * 0.6,
