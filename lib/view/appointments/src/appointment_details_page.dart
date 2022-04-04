@@ -2,7 +2,6 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/search_details/src/search_details_page.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class AppointmentDetailsPage extends StatefulWidget {
@@ -30,7 +29,9 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.black,
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
         ),
         title: const Text(
           "Appointment Details",

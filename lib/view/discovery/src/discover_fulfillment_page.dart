@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/search_details/src/search_details_page.dart';
+import 'package:uhi_eua_flutter_app/view/discovery/src/discovery_details_page.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
-class DiscoverDoctorPage extends StatefulWidget {
-  const DiscoverDoctorPage({Key? key}) : super(key: key);
+class DiscoverFulfillmentPage extends StatefulWidget {
+  const DiscoverFulfillmentPage({Key? key}) : super(key: key);
 
   @override
-  State<DiscoverDoctorPage> createState() => _DiscoverDoctorPageState();
+  State<DiscoverFulfillmentPage> createState() =>
+      _DiscoverFulfillmentPageState();
 }
 
-class _DiscoverDoctorPageState extends State<DiscoverDoctorPage> {
+class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
   ///SIZE
   var width;
   var height;
@@ -369,7 +370,7 @@ class _DiscoverDoctorPageState extends State<DiscoverDoctorPage> {
           space(size: 30, isWidth: false),
           InkWell(
             onTap: () {
-              Get.to(() => const SearchDetailsPage());
+              Get.to(() => const DiscoveryDetailsPage());
             },
             child: Container(
               width: width * 0.9,
