@@ -1,1 +1,1 @@
-export 'src/discover_doctor_page.dart';
+export 'src/appointment_details_page.dart';
