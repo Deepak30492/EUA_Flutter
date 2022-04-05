@@ -58,7 +58,12 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
           Container(
               height: 2, width: width, color: AppColors.primaryLightBlue007BFF),
           Container(
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+              boxShadow: AppShadows.shadow1,
+              //border: Border.all(color: Colors.grey)
+            ),
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
@@ -75,7 +80,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                       fontSize: 16.0),
                 ),
               ),
-              expanded: Container(
+              collapsed: Container(
                 height: 130,
                 width: width,
                 color: Colors.white,
@@ -167,11 +172,16 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                   ),
                 ),
               ),
-              collapsed: Container(),
+              expanded: Container(),
             ),
           ),
           Container(
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+              boxShadow: AppShadows.shadow1,
+              //border: Border.all(color: Colors.grey)
+            ),
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
@@ -188,7 +198,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                       fontSize: 16.0),
                 ),
               ),
-              expanded: Container(
+              collapsed: Container(
                 height: 130,
                 width: width,
                 color: Colors.white,
@@ -280,11 +290,16 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                   ),
                 ),
               ),
-              collapsed: Container(),
+              expanded: Container(),
             ),
           ),
           Container(
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+              boxShadow: AppShadows.shadow1,
+              //border: Border.all(color: Colors.grey)
+            ),
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
@@ -373,7 +388,12 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             ),
           ),
           Container(
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+              boxShadow: AppShadows.shadow1,
+              //border: Border.all(color: Colors.grey)
+            ),
             margin: const EdgeInsets.all(10),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
