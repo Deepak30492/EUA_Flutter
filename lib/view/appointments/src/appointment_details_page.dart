@@ -78,7 +78,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                       fontSize: 16.0),
                 ),
               ),
-              expanded: Container(
+              collapsed: Container(
                 height: 130,
                 width: width,
                 color: Colors.white,
@@ -170,7 +170,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                   ),
                 ),
               ),
-              collapsed: Container(),
+              expanded: Container(),
             ),
           ),
           Container(
@@ -195,7 +195,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                       fontSize: 16.0),
                 ),
               ),
-              expanded: Container(
+              collapsed: Container(
                 height: 130,
                 width: width,
                 color: Colors.white,
@@ -287,7 +287,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                   ),
                 ),
               ),
-              collapsed: Container(),
+              expanded: Container(),
             ),
           ),
           Container(

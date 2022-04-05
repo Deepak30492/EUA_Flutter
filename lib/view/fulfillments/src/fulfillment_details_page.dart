@@ -98,9 +98,9 @@ class _FulfillmentDetailsPageState extends State<FulfillmentDetailsPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              setState(() {
-                                isShowDatePicker = !isShowDatePicker;
-                              });
+                              // setState(() {
+                              //   isShowDatePicker = !isShowDatePicker;
+                              // });
                             },
                             child: Icon(
                               Icons.calendar_today_rounded,
