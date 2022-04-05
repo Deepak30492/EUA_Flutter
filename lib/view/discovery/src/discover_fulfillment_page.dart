@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:location/location.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
 import 'package:uhi_eua_flutter_app/view/discovery/src/discovery_details_page.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
@@ -205,7 +208,35 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
                         ),
                         space(size: 20, isWidth: false),
                         InkWell(
-                          onTap: () {},
+                          onTap: () async {
+                            Location location = new Location();
+
+                            bool _serviceEnabled;
+                            PermissionStatus _permissionGranted;
+                            LocationData _locationData;
+
+                            _serviceEnabled = await location.serviceEnabled();
+                            if (!_serviceEnabled) {
+                              _serviceEnabled = await location.requestService();
+                              if (!_serviceEnabled) {
+                                return;
+                              }
+                            }
+
+                            _permissionGranted = await location.hasPermission();
+                            if (_permissionGranted == PermissionStatus.denied) {
+                              _permissionGranted =
+                                  await location.requestPermission();
+                              if (_permissionGranted !=
+                                  PermissionStatus.granted) {
+                                return;
+                              }
+                            }
+
+                            _locationData = await location.getLocation();
+
+                            print("==> ${_locationData.time}");
+                          },
                           child: Center(
                             child: Container(
                               width: width * 0.6,
