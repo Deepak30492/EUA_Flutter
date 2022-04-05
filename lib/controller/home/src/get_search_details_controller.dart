@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/constants/constants.dart';
 import 'package:uhi_eua_flutter_app/model/model.dart';
 import 'package:uhi_eua_flutter_app/services/services.dart';
+import 'package:uhi_eua_flutter_app/controller/controller.dart';
 
 ///TO CHANGE STATE OF UI
-enum DataState { loading, complete }
+// enum DataState { loading, complete }
 
 class GetSearchDetailsController extends GetxController with ExceptionHandler {
   ///FULFILLMENTS LIST

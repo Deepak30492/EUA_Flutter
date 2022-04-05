@@ -27,22 +27,23 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
         backgroundColor: AppColors.white,
         shadowColor: Colors.black.withOpacity(0.1),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.black,
           onPressed: () {
             Get.back();
           },
-        ),
-        title: const Text(
-          "Appointment Details",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Poppins",
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
+          icon: Icon(
+            Icons.chevron_left_rounded,
+            color: AppColors.darkGrey323232,
+            size: 32,
           ),
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
         ),
+        title: Text(
+          "Appointment Details",
+          style: AppTextStyle.doctorNameBigTextStyle,
+        ),
+        centerTitle: true,
+        bottom: const AppbarBottomLine(),
       ),
       body: buildWidgets(),
     );
@@ -56,10 +57,12 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
       child: ListView(
         children: [
           Container(
-              height: 2, width: width, color: AppColors.primaryLightBlue007BFF),
-          Container(
-            color: Colors.white,
             margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: AppShadows.shadow1,
+            ),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
                   iconColor: AppColors.primaryLightBlue007BFF),
@@ -171,8 +174,12 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             ),
           ),
           Container(
-            color: Colors.white,
             margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: AppShadows.shadow1,
+            ),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
                   iconColor: AppColors.primaryLightBlue007BFF),
@@ -284,8 +291,12 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             ),
           ),
           Container(
-            color: Colors.white,
             margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: AppShadows.shadow1,
+            ),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
                   iconColor: AppColors.primaryLightBlue007BFF),
@@ -373,8 +384,12 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             ),
           ),
           Container(
-            color: Colors.white,
             margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: AppShadows.shadow1,
+            ),
             child: ExpandablePanel(
               theme: ExpandableThemeData(
                   iconColor: AppColors.primaryLightBlue007BFF),

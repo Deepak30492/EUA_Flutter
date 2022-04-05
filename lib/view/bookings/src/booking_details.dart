@@ -102,10 +102,15 @@ class _BookingDetailsState extends State<BookingDetails> {
                             "Patient Info",
                             style: AppTextStyle.subHeading4SemiBoldTextStyle,
                           ),
-                          Text(
-                            "Edit",
-                            style: AppTextStyle
-                                .subHeading4PrimaryColorSemiBoldTextStyle,
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => const UserProfilePage());
+                            },
+                            child: Text(
+                              "Edit",
+                              style: AppTextStyle
+                                  .subHeading4PrimaryColorSemiBoldTextStyle,
+                            ),
                           ),
                         ],
                       ),

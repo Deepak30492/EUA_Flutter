@@ -72,6 +72,7 @@ class LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
                           //border: Border.all(color: Colors.grey)
+                          boxShadow: AppShadows.shadow1,
                         ),
                         child: Row(
                           children: [
@@ -124,6 +125,7 @@ class LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
                           //border: Border.all(color: Colors.grey)
+                          boxShadow: AppShadows.shadow1,
                         ),
                         child: Row(
                           children: [
