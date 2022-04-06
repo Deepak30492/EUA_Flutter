@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
+import 'package:uhi_eua_flutter_app/utils/utils.dart';
 import 'package:uhi_eua_flutter_app/view/discovery/src/discovery_details_page.dart';
 import 'package:uhi_eua_flutter_app/view/view.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
@@ -17,6 +18,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
   var width;
   var height;
   var isPortrait;
+
+  ///CONTROLLERS
+  TextEditingController _fullNameTextEditingController =
+      TextEditingController();
+  TextEditingController _addressTextEditingController = TextEditingController();
+  TextEditingController _contactNumberTextEditingController =
+      TextEditingController();
+  TextEditingController _emailTextEditingController = TextEditingController();
 
   ///DATA VARIABLES
   bool isShowLocationDialog = false;
@@ -88,7 +97,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
             child: Center(
               child: TextField(
-                // controller: _textEditingController,
+                controller: _fullNameTextEditingController,
                 style: AppTextStyle.textFieldTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -115,7 +124,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
             child: Center(
               child: TextField(
-                // controller: _textEditingController,
+                controller: _addressTextEditingController,
                 style: AppTextStyle.textFieldTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -142,7 +151,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
             child: Center(
               child: TextField(
-                // controller: _textEditingController,
+                controller: _contactNumberTextEditingController,
                 style: AppTextStyle.textFieldTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -169,7 +178,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
             child: Center(
               child: TextField(
-                // controller: _textEditingController,
+                controller: _emailTextEditingController,
                 style: AppTextStyle.textFieldTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -188,6 +197,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
           Spacing(size: 20, isWidth: false),
           InkWell(
             onTap: () {
+              SharedPrefs.setUserName(_fullNameTextEditingController.text);
+              SharedPrefs.setUserAddress(_addressTextEditingController.text);
+              SharedPrefs.setUserContactNumber(
+                  _contactNumberTextEditingController.text);
+              SharedPrefs.setUserEmail(_emailTextEditingController.text);
               Get.back();
             },
             child: Container(
