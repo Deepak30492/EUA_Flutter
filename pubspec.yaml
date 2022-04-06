@@ -41,8 +41,10 @@ dependencies:
   jiffy: ^5.0.0
   uuid: ^3.0.6
   syncfusion_flutter_datepicker: ^19.4.56
-  upi_india: ^3.0.1
   expandable: ^5.0.1
+  shared_preferences: ^2.0.13
+  shared_preferences_web: ^2.0.3
+  web_socket_channel: ^2.1.0
 
 dev_dependencies:
   flutter_test:

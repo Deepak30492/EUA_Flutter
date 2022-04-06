@@ -5,21 +5,32 @@ import 'package:uhi_eua_flutter_app/view/fulfillments/fulfillments.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class DiscoveryDetailsPage extends StatefulWidget {
-  const DiscoveryDetailsPage({Key? key}) : super(key: key);
+  String healthcareType;
+  String searchHealthcareQuery;
+  String searchSymptomsQuery;
+
+  DiscoveryDetailsPage({
+    Key? key,
+    required this.healthcareType,
+    required this.searchHealthcareQuery,
+    required this.searchSymptomsQuery,
+  }) : super(key: key);
 
   @override
   State<DiscoveryDetailsPage> createState() => _DiscoveryDetailsPageState();
 }
 
 class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
-  ///CONTROLLERS
-  TextEditingController searchTextEditingController = TextEditingController();
-  TextEditingController symptomsTextEditingController = TextEditingController();
-
   ///SIZE
   var width;
   var height;
   var isPortrait;
+
+  ///CONTROLLERS
+  TextEditingController _healthcareTextEditingController =
+      TextEditingController();
+  TextEditingController _symptomsTextEditingController =
+      TextEditingController();
 
   ///DATA VARIABLES
   String _dropdownValue = "Healthcare Professional Name";
@@ -28,6 +39,14 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
     "Healthcare Services Name",
   ];
   bool isShowLocationDialog = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _dropdownValue = widget.healthcareType;
+    _healthcareTextEditingController.text = widget.searchHealthcareQuery;
+    _symptomsTextEditingController.text = widget.searchSymptomsQuery;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,26 +179,32 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
               child: Column(
                 children: [
                   TextField(
-                    // controller: _textEditingController,
+                    controller: _healthcareTextEditingController,
                     style: AppTextStyle.textFieldTextStyle,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Search a professional, service etc.",
                       hintStyle: AppTextStyle.textFieldHintTextStyle,
-                      contentPadding: const EdgeInsets.only(top: 15, left: 15),
-                      suffixIcon: InkWell(
-                        onTap: () {
-                          setState(() {});
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Icons.close_rounded,
-                            color: AppColors.darkGrey323232,
-                            size: 20,
-                          ),
-                        ),
-                      ),
+                      contentPadding:
+                          const EdgeInsets.only(top: 15, left: 15, bottom: 15),
+                      suffixIcon:
+                          _healthcareTextEditingController.text.isNotEmpty
+                              ? InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _healthcareTextEditingController.clear();
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: Icon(
+                                      Icons.close_rounded,
+                                      color: AppColors.darkGrey323232,
+                                      size: 20,
+                                    ),
+                                  ),
+                                )
+                              : null,
                     ),
                   ),
                   Container(
@@ -195,21 +220,31 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
               child: Column(
                 children: [
                   TextField(
-                    // controller: _textEditingController,
+                    controller: _symptomsTextEditingController,
                     style: AppTextStyle.textFieldTextStyle,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Tell us your symptoms",
                       hintStyle: AppTextStyle.textFieldHintTextStyle,
-                      contentPadding: const EdgeInsets.only(top: 15, left: 15),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 5),
-                        child: Icon(
-                          Icons.close_rounded,
-                          color: AppColors.darkGrey323232,
-                          size: 20,
-                        ),
-                      ),
+                      contentPadding:
+                          const EdgeInsets.only(top: 15, left: 15, bottom: 15),
+                      suffixIcon: _symptomsTextEditingController.text.isNotEmpty
+                          ? InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _symptomsTextEditingController.clear();
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Icon(
+                                  Icons.close_rounded,
+                                  color: AppColors.darkGrey323232,
+                                  size: 20,
+                                ),
+                              ),
+                            )
+                          : null,
                     ),
                   ),
                   Container(

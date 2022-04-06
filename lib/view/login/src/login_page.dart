@@ -71,8 +71,8 @@ class LoginPageState extends State<LoginPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
-                          boxShadow: AppShadows.shadow1,
                           //border: Border.all(color: Colors.grey)
+                          boxShadow: AppShadows.shadow1,
                         ),
                         child: Row(
                           children: [
@@ -124,8 +124,8 @@ class LoginPageState extends State<LoginPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
-                          boxShadow: AppShadows.shadow1,
                           //border: Border.all(color: Colors.grey)
+                          boxShadow: AppShadows.shadow1,
                         ),
                         child: Row(
                           children: [

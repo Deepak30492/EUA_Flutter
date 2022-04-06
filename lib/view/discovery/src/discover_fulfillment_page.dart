@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uhi_eua_flutter_app/constants/constants.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
 import 'package:uhi_eua_flutter_app/view/discovery/src/discovery_details_page.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
@@ -18,11 +19,17 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
   var height;
   var isPortrait;
 
+  ///CONTROLLERS
+  TextEditingController _healthcareTextEditingController =
+      TextEditingController();
+  TextEditingController _symptomsTextEditingController =
+      TextEditingController();
+
   ///DATA VARIABLES
-  String _dropdownValue = "Healthcare Professional Name";
+  String _dropdownValue = HealthcareTypes.professionalName;
   final List<String> _listOfDropdownValues = [
-    "Healthcare Professional Name",
-    "Healthcare Services Name",
+    HealthcareTypes.professionalName,
+    HealthcareTypes.serviceName,
   ];
   bool isShowLocationDialog = false;
 
@@ -47,7 +54,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
                 color: AppColors.primaryLightBlue007BFF,
                 size: 28,
               ),
-              space(isWidth: true),
+              Spacing(isWidth: true),
               InkWell(
                 onTap: () {
                   setState(() {
@@ -69,7 +76,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
                           "Pune, Maharashtra",
                           style: AppTextStyle.normal1TextStyle,
                         ),
-                        space(isWidth: true),
+                        Spacing(isWidth: true),
                         Icon(
                           Icons.expand_more,
                           color: AppColors.primaryLightBlue007BFF,
@@ -258,7 +265,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          space(size: 100, isWidth: false),
+          Spacing(size: 100, isWidth: false),
           Container(
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: Column(children: [
@@ -269,7 +276,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
               const SizedBox(
                 height: 10,
               ),
-              space(isWidth: false),
+              Spacing(isWidth: false),
               Text(
                 "Get access to multiple digital health services from this platform e.g. discover a doctor for your need at any time, get your required healthcare services, etc.",
                 style: AppTextStyle.subHeading4TextStyle,
@@ -277,7 +284,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
               ),
             ]),
           ),
-          space(size: 50, isWidth: false),
+          Spacing(size: 50, isWidth: false),
           Container(
             width: width * 0.9,
             height: height * 0.062,
@@ -314,7 +321,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
               }).toList(),
             )),
           ),
-          space(isWidth: false),
+          Spacing(isWidth: false),
           Container(
             width: width * 0.9,
             height: height * 0.062,
@@ -325,7 +332,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
             ),
             child: Center(
               child: TextField(
-                // controller: _textEditingController,
+                controller: _healthcareTextEditingController,
                 style: AppTextStyle.textFieldTextStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -341,7 +348,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
               ),
             ),
           ),
-          space(isWidth: false),
+          Spacing(isWidth: false),
           Container(
             width: width * 0.9,
             height: height * 0.16,
@@ -352,7 +359,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
             ),
             child: Center(
               child: TextField(
-                // controller: _textEditingController,
+                controller: _symptomsTextEditingController,
                 style: AppTextStyle.textFieldTextStyle,
                 minLines: 5,
                 maxLines: 10,
@@ -365,10 +372,15 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
               ),
             ),
           ),
-          space(size: 30, isWidth: false),
+          Spacing(size: 30, isWidth: false),
           InkWell(
             onTap: () {
-              Get.to(() => const DiscoveryDetailsPage());
+              Get.to(() => DiscoveryDetailsPage(
+                    healthcareType: _dropdownValue,
+                    searchHealthcareQuery:
+                        _healthcareTextEditingController.text,
+                    searchSymptomsQuery: _symptomsTextEditingController.text,
+                  ));
             },
             child: Container(
               width: width * 0.9,
@@ -389,15 +401,5 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
         ],
       ),
     );
-  }
-
-  space({double? size, required bool isWidth}) {
-    return isWidth
-        ? SizedBox(
-            width: size ?? 10,
-          )
-        : SizedBox(
-            height: size ?? 10,
-          );
   }
 }

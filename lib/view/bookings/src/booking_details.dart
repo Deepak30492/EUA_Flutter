@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
+import 'package:uhi_eua_flutter_app/utils/utils.dart';
 import 'package:uhi_eua_flutter_app/view/view.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
@@ -19,6 +20,18 @@ class _BookingDetailsState extends State<BookingDetails> {
 
   ///DATA VARIABLES
   int? _selectedTimeSlotIndex;
+  String? _fullName = "-";
+  String? _address = "-";
+  String? _contactNumber = "-";
+  String? _email = "-";
+
+  ///METHODS
+  getSharedPrefs() async {
+    _fullName = await SharedPrefs.getUserName() ?? "-";
+    _address = await SharedPrefs.getUserAddress();
+    _contactNumber = await SharedPrefs.getUserContactNumber();
+    _email = await SharedPrefs.getUserEmail();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +39,8 @@ class _BookingDetailsState extends State<BookingDetails> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     isPortrait = MediaQuery.of(context).orientation;
+
+    getSharedPrefs();
 
     return Scaffold(
       appBar: AppBar(
@@ -102,10 +117,19 @@ class _BookingDetailsState extends State<BookingDetails> {
                             "Patient Info",
                             style: AppTextStyle.subHeading4SemiBoldTextStyle,
                           ),
-                          Text(
-                            "Edit",
-                            style: AppTextStyle
-                                .subHeading4PrimaryColorSemiBoldTextStyle,
+                          InkWell(
+                            onTap: () async {
+                              var result =
+                                  await Get.to(() => const UserProfilePage());
+                              if (result != null && result) {
+                                setState(() {});
+                              }
+                            },
+                            child: Text(
+                              "Edit",
+                              style: AppTextStyle
+                                  .subHeading4PrimaryColorSemiBoldTextStyle,
+                            ),
                           ),
                         ],
                       ),
@@ -147,7 +171,8 @@ class _BookingDetailsState extends State<BookingDetails> {
                                 ),
                                 Spacing(),
                                 Text(
-                                  "Aadya Singh",
+                                  // "Aadya Singh",
+                                  _fullName!,
                                   style: AppTextStyle.subHeading4DarkTextStyle,
                                 ),
                               ],
