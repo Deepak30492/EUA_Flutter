@@ -39,7 +39,8 @@ class GetBookingDetailsController extends GetxController with ExceptionHandler {
       paginationLoading.value = true;
     }
 
-    await BaseClient(url: RequestUrls.postSearchDetails, body: bookingDetails)
+    await BaseClient(
+            url: RequestUrls.postDiscoveryDetails, body: bookingDetails)
         .post()
         .then(
       (value) {
@@ -73,7 +74,7 @@ class GetBookingDetailsController extends GetxController with ExceptionHandler {
 
     await BaseClient(
             url:
-                "${RequestUrls.postSearchDetails}/message/$messageId?dhp_query_type=$getUrlType")
+                "${RequestUrls.postDiscoveryDetails}/message/$messageId?dhp_query_type=$getUrlType")
         .get()
         .then(
       (value) {

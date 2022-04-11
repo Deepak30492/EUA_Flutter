@@ -1,8 +1,20 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uhi_eua_flutter_app/constants/src/healthcare_types.dart';
+import 'package:uhi_eua_flutter_app/controller/controller.dart';
+import 'package:uhi_eua_flutter_app/controller/discovery/src/get_discovery_details_controller.dart';
+import 'package:uhi_eua_flutter_app/model/src/healthcare_service_provider_name.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
+import 'package:uhi_eua_flutter_app/model/model.dart';
+import 'package:uhi_eua_flutter_app/constants/constants.dart';
+import 'package:uhi_eua_flutter_app/utils/src/loading_indicator.dart';
 import 'package:uhi_eua_flutter_app/view/fulfillments/fulfillments.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
+import 'package:uuid/uuid.dart';
 
 class DiscoveryDetailsPage extends StatefulWidget {
   String healthcareType;
@@ -31,14 +43,28 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
       TextEditingController();
   TextEditingController _symptomsTextEditingController =
       TextEditingController();
+  PostDiscoveryDetailsController _postDiscoveryDetailsController =
+      Get.put(PostDiscoveryDetailsController());
+  GetDiscoveryDetailsController _getDiscoveryDetailsController =
+      Get.put(GetDiscoveryDetailsController());
 
   ///DATA VARIABLES
-  String _dropdownValue = "Healthcare Professional Name";
+  String _dropdownValue = HealthcareTypes.serviceProviderName;
   final List<String> _listOfDropdownValues = [
-    "Healthcare Professional Name",
-    "Healthcare Services Name",
+    HealthcareTypes.serviceProviderName,
+    HealthcareTypes.professionalName,
+    // HealthcareTypes.serviceName,
   ];
   bool isShowLocationDialog = false;
+  String? _uniqueId;
+  AcknowledgementModel? _acknowledgementModel;
+  StreamSubscription? _streamSubscription;
+  // StreamController _streamController = StreamController.broadcast();
+  ResponseModel? _responseModel;
+  DiscoveryDetailsModel? _discoveryDetailsModel;
+  List<Fulfillments>? _listOfFulfillments;
+  String? _hospitalName;
+  String? _categoryName;
 
   @override
   void initState() {
@@ -46,7 +72,132 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
     _dropdownValue = widget.healthcareType;
     _healthcareTextEditingController.text = widget.searchHealthcareQuery;
     _symptomsTextEditingController.text = widget.searchSymptomsQuery;
+    // _streamController.addStream(_getSearchDetails());
+    _streamSubscription = _getSearchDetails().listen(
+      (event) {},
+    );
+    callAPIs();
   }
+
+  @override
+  void dispose() {
+    _streamSubscription?.cancel();
+    // _streamController.close();
+    _healthcareTextEditingController.dispose();
+    super.dispose();
+  }
+
+  callAPIs() async {
+    _acknowledgementModel = await _postDiscoveryDetails(
+        searchQuery: widget.searchHealthcareQuery,
+        searchType: widget.healthcareType);
+  }
+
+  Future<AcknowledgementModel?> _postDiscoveryDetails(
+      {required String searchType, required String searchQuery}) async {
+    _uniqueId = const Uuid().v1();
+
+    ContextModel contextModel = ContextModel();
+    contextModel.domain = "nic2004:85110";
+    contextModel.country = "IND";
+    contextModel.city = "std:080";
+    contextModel.action = "search";
+    contextModel.coreVersion = "0.7.1";
+    // contextModel.messageId = "85a422c4-2867-4d72-b5f5-d31588e2f7c5";
+    contextModel.messageId = _uniqueId;
+    contextModel.consumerId = "refrenceapp.123";
+    contextModel.consumerUri = "refrenceapp.123";
+    contextModel.timestamp = DateTime.now().toLocal().toUtc().toIso8601String();
+
+    if (_dropdownValue == HealthcareTypes.serviceProviderName) {
+      HealthcareServiceProviderName serviceProviderNameRequestModel =
+          HealthcareServiceProviderName();
+      HealthcareServiceProviderNameMessage message =
+          HealthcareServiceProviderNameMessage();
+      HealthcareServiceProviderMessageIntent intent =
+          HealthcareServiceProviderMessageIntent();
+      HealthcareServiceProviderMessageDescriptor descriptor =
+          HealthcareServiceProviderMessageDescriptor();
+      HealthcareServiceProviderMessageProvider provider =
+          HealthcareServiceProviderMessageProvider();
+      serviceProviderNameRequestModel.context = contextModel;
+      descriptor.name = _healthcareTextEditingController.text;
+      provider.descriptor = descriptor;
+      intent.provider = provider;
+      message.intent = intent;
+      serviceProviderNameRequestModel.message = message;
+      print("==> ${jsonEncode(serviceProviderNameRequestModel)}");
+      await _postDiscoveryDetailsController.postDiscoveryDetails(
+          discoveryDetails: serviceProviderNameRequestModel,
+          discoveryType: HealthcareTypes.serviceProviderName);
+    } else if (_dropdownValue == HealthcareTypes.serviceName) {
+      HealthcareServiceNameRequestModel serviceNameRequestModel =
+          HealthcareServiceNameRequestModel();
+      HealthcareServiceNameMessage message = HealthcareServiceNameMessage();
+      HealthcareServiceNameItem item = HealthcareServiceNameItem();
+      HealthcareServiceNameIntent intent = HealthcareServiceNameIntent();
+      HealthcareServiceNameDescriptor descriptor =
+          HealthcareServiceNameDescriptor();
+      serviceNameRequestModel.context = contextModel;
+      descriptor.name = _healthcareTextEditingController.text;
+      item.descriptor = descriptor;
+      intent.item = item;
+      message.intent = intent;
+      serviceNameRequestModel.message = message;
+      print("==> ${jsonEncode(serviceNameRequestModel)}");
+      await _postDiscoveryDetailsController.postDiscoveryDetails(
+          discoveryDetails: serviceNameRequestModel,
+          discoveryType: HealthcareTypes.serviceName);
+    } else if (_dropdownValue == HealthcareTypes.professionalName) {
+      HealthcareProfessionalNameRequestModel professionalNameRequestModel =
+          HealthcareProfessionalNameRequestModel();
+      HealthcareProfessionalNameMessage message =
+          HealthcareProfessionalNameMessage();
+      HealthcareProfessionalNameIntent intent =
+          HealthcareProfessionalNameIntent();
+      HealthcareProfessionalNameFulfillment fulfillment =
+          HealthcareProfessionalNameFulfillment();
+      HealthcareProfessionalNamePerson person =
+          HealthcareProfessionalNamePerson();
+      HealthcareProfessionalNameDescriptor descriptor =
+          HealthcareProfessionalNameDescriptor();
+
+      professionalNameRequestModel.context = contextModel;
+      descriptor.name = _healthcareTextEditingController.text;
+      person.descriptor = descriptor;
+      fulfillment.person = person;
+      intent.fulfillment = fulfillment;
+      message.intent = intent;
+      professionalNameRequestModel.message = message;
+      print("==> ${jsonEncode(professionalNameRequestModel)}");
+
+      await _postDiscoveryDetailsController.postDiscoveryDetails(
+          discoveryDetails: professionalNameRequestModel,
+          discoveryType: HealthcareTypes.professionalName);
+    }
+
+    return _postDiscoveryDetailsController.discoveryDetails;
+  }
+
+  Stream _getSearchDetails() => Stream.periodic(
+        const Duration(milliseconds: 500),
+        (computationCount) async {
+          if (_acknowledgementModel?.message?.ack?.status == "ACK") {
+            if (_getDiscoveryDetailsController.discoveryDetails != null) {
+              _uniqueId = null;
+              _streamSubscription?.cancel();
+              return;
+            } else if (_getDiscoveryDetailsController.errorString.isNotEmpty) {
+              _streamSubscription?.cancel();
+              return;
+            } else if (_getDiscoveryDetailsController.discoveryDetails ==
+                null) {
+              await _getDiscoveryDetailsController.getDiscoveryDetails(
+                  messageId: _uniqueId, getUrlType: "search");
+            }
+          }
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -119,11 +270,47 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
           ),
         ),
       ),
-      body: buildWidgets(),
+      body: StreamBuilder(
+          stream: _getSearchDetails(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Container(
+                  child: Center(
+                    child: Text(
+                      "Something went wrong",
+                      style: AppTextStyle.subHeading1TextStyle,
+                    ),
+                  ),
+                );
+
+              case ConnectionState.waiting:
+                return CommonLoadingIndicator();
+
+              case ConnectionState.active:
+                return _getDiscoveryDetailsController.discoveryDetails != null
+                    ? buildWidgets()
+                    : CommonLoadingIndicator();
+
+              case ConnectionState.done:
+                return buildWidgets();
+            }
+          }),
     );
   }
 
   buildWidgets() {
+    _responseModel = _getDiscoveryDetailsController.discoveryDetails;
+    _discoveryDetailsModel = DiscoveryDetailsModel.fromJson(
+        jsonDecode(_responseModel!.response!) as Map<String, dynamic>);
+    _listOfFulfillments =
+        _discoveryDetailsModel?.message?.catalog?.providers?[0].fulfillments;
+    _hospitalName =
+        "${_discoveryDetailsModel?.message?.catalog?.providers?[0].descriptor?.name} ";
+    _categoryName = _discoveryDetailsModel
+        ?.message?.catalog?.providers?[0].categories?[0].descriptor?.name;
+    log("==> ${jsonEncode(_discoveryDetailsModel)}");
+
     return Container(
       width: width,
       height: height,
@@ -206,6 +393,12 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                                 )
                               : null,
                     ),
+                    onEditingComplete: () {
+                      print("In here");
+                      if (_healthcareTextEditingController.text.isNotEmpty) {
+                        print("In ");
+                      }
+                    },
                   ),
                   Container(
                     height: 3,
@@ -258,7 +451,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
             Container(
               width: width * 0.94,
               child: Text(
-                "10 results found",
+                "${_listOfFulfillments?.length} results found",
                 style: AppTextStyle.textFieldHintTextStyle,
               ),
             ),
@@ -275,19 +468,26 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
       width: width * 0.94,
       height: height,
       child: ListView.builder(
-        itemCount: 5,
+        // itemCount: 5,
+        itemCount: _listOfFulfillments?.length,
         physics: const ClampingScrollPhysics(),
         itemBuilder: (context, index) {
-          return buildDoctorTile();
+          return buildDoctorTile(_listOfFulfillments![index]);
         },
       ),
     );
   }
 
-  buildDoctorTile() {
+  buildDoctorTile(Fulfillments fulfillment) {
+    String? doctorName = fulfillment.person?.name ?? "";
+    doctorName = doctorName + ", " + _categoryName!;
+    String? gender = fulfillment.person?.gender;
     return InkWell(
       onTap: () {
-        Get.to(() => const FulfillmentDetailsPage());
+        Get.to(() => FulfillmentDetailsPage(
+              fulfillmentName: doctorName!,
+              fulfillmentHospital: _hospitalName!,
+            ));
       },
       child: Container(
         height: height * 0.16,
@@ -324,7 +524,8 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                   children: [
                     Container(
                       child: Text(
-                        "Dr. Neesheet Parikh, DO",
+                        // "Dr. Neesheet Parikh, DO",
+                        doctorName,
                         style: AppTextStyle.doctorNameSmallTextStyle,
                       ),
                     ),
@@ -332,7 +533,8 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                     Container(
                       child: RichText(
                         text: TextSpan(
-                          text: "Max Hospital, Skin Specialist, ",
+                          // text: "Max Hospital, Skin Specialist, ",
+                          text: _hospitalName ?? "",
                           style: AppTextStyle.hospitalNameSmallTextStyle,
                           children: [
                             TextSpan(

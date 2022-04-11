@@ -41,7 +41,8 @@ class FulfillmentImageAndLocation extends StatelessWidget {
           Spacing(isWidth: false),
           Container(
             child: Text(
-              "Max Hospital, Skin Specialist",
+              //  "Max Hospital, Skin Specialist",
+              hospitalName,
               style: AppTextStyle.hospitalNameBigTextStyle,
             ),
           ),

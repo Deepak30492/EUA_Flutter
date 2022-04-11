@@ -6,7 +6,13 @@ import 'package:uhi_eua_flutter_app/view/bookings/bookings.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class FulfillmentDetailsPage extends StatefulWidget {
-  const FulfillmentDetailsPage({Key? key}) : super(key: key);
+  String fulfillmentName;
+  String fulfillmentHospital;
+  FulfillmentDetailsPage(
+      {Key? key,
+      required this.fulfillmentName,
+      required this.fulfillmentHospital})
+      : super(key: key);
 
   @override
   State<FulfillmentDetailsPage> createState() => _FulfillmentDetailsPageState();
@@ -46,7 +52,8 @@ class _FulfillmentDetailsPageState extends State<FulfillmentDetailsPage> {
           constraints: const BoxConstraints(),
         ),
         title: Text(
-          "Dr. Neesheet Parikh, DO",
+          // "Dr. Neesheet Parikh, DO",
+          widget.fulfillmentName,
           style: AppTextStyle.doctorNameBigTextStyle,
         ),
         centerTitle: true,
@@ -64,7 +71,7 @@ class _FulfillmentDetailsPageState extends State<FulfillmentDetailsPage> {
               FulfillmentImageAndLocation(
                 width: width,
                 imageUrl: "",
-                hospitalName: "",
+                hospitalName: widget.fulfillmentHospital,
                 distance: "",
               ),
               Container(

@@ -6,10 +6,10 @@ import 'package:uhi_eua_flutter_app/controller/controller.dart';
 import 'package:uhi_eua_flutter_app/services/services.dart';
 import 'package:uhi_eua_flutter_app/model/model.dart';
 
-class PostFulfillmentDetailsController extends GetxController
+class GetDiscoveryDetailsController extends GetxController
     with ExceptionHandler {
   ///DISCOVERY DETAILS
-  var fulfillmentDetails;
+  ResponseModel? discoveryDetails;
 
   ///STATE
   var state = DataState.loading.obs;
@@ -22,26 +22,23 @@ class PostFulfillmentDetailsController extends GetxController
     super.onInit();
   }
 
-  Future<void> postFulfillmentDetails({Object? fulfillmentDetails}) async {
-    if (fulfillmentDetails == null) {
+  Future<ResponseModel> getDiscoveryDetails(
+      {String? messageId, String? getUrlType}) async {
+    if (discoveryDetails == null) {
       state.value = DataState.loading;
     }
 
-    await BaseClient(
-            url: RequestUrls.postDoctorDetails, body: fulfillmentDetails)
-        .post()
-        .then(
+    await BaseClient(url: "${RequestUrls.getDetails}/$messageId").get().then(
       (value) {
-        if (value == null) {
+        if (value[0] == null) {
         } else {
-          AcknowledgementModel acknowledgementModel =
-              AcknowledgementModel.fromJson(value);
-          setFulfillmentDetails(acknowledgementModel: acknowledgementModel);
+          ResponseModel responseModel = ResponseModel.fromJson(value[0]);
+          setDiscoveryDetails(discoveryDetailsModel: responseModel);
         }
       },
     ).catchError(
       (onError) {
-        log("Post Fulfillment Details $onError ${onError.message}");
+        log("GET Search Details $onError ${onError.message}");
 
         errorString = "${onError.message}";
 
@@ -50,19 +47,20 @@ class PostFulfillmentDetailsController extends GetxController
     );
 
     state.value = DataState.complete;
+    return discoveryDetails!;
   }
 
-  setFulfillmentDetails({required AcknowledgementModel? acknowledgementModel}) {
-    if (acknowledgementModel == null) {
+  setDiscoveryDetails({required ResponseModel? discoveryDetailsModel}) {
+    if (discoveryDetailsModel == null) {
       return;
     }
 
-    fulfillmentDetails = acknowledgementModel;
+    discoveryDetails = discoveryDetailsModel;
   }
 
   @override
   refresh() async {
-    ///POST FULFILLMENT DETAILS
-    postFulfillmentDetails();
+    ///GET DISCOVERY DETAILS
+    getDiscoveryDetails();
   }
 }

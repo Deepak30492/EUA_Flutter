@@ -12,7 +12,7 @@ enum DataState { loading, complete }
 class PostDiscoveryDetailsController extends GetxController
     with ExceptionHandler {
   ///DISCOVERY DETAILS
-  var discoveryDetails;
+  AcknowledgementModel? discoveryDetails;
 
   ///STATE
   var state = DataState.loading.obs;
@@ -25,12 +25,14 @@ class PostDiscoveryDetailsController extends GetxController
     super.onInit();
   }
 
-  Future<void> postDiscoveryDetails({Object? discoveryDetails}) async {
+  Future<void> postDiscoveryDetails(
+      {Object? discoveryDetails, String? discoveryType}) async {
     if (discoveryDetails == null) {
       state.value = DataState.loading;
     }
 
-    await BaseClient(url: RequestUrls.postSearchDetails, body: discoveryDetails)
+    await BaseClient(
+            url: RequestUrls.postDiscoveryDetails, body: discoveryDetails)
         .post()
         .then(
       (value) {

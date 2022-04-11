@@ -21,6 +21,8 @@ class BaseClient {
 
   //Get request to server
   Future<dynamic> get() async {
+    // log("Url ${url}", name: "URL");
+
     try {
       var response = await client.get(
         Uri.parse(url!),
@@ -45,6 +47,9 @@ class BaseClient {
 
   //Post request to server
   Future<dynamic> post() async {
+    // log("Url ${url}", name: "URL");
+    // log("Request ${body}", name: "REQUEST");
+
     try {
       var response = await client
           .post(
@@ -77,8 +82,14 @@ class BaseClient {
 
     switch (response.statusCode) {
       case 200:
+        var responseJson = json.decode(utf8.decode(response.bodyBytes));
+        return responseJson;
 
       case 201:
+        var responseJson = json.decode(utf8.decode(response.bodyBytes));
+        return responseJson;
+
+      case 204:
         var responseJson = json.decode(utf8.decode(response.bodyBytes));
         return responseJson;
 

@@ -27,7 +27,7 @@ class PostBookingDetailsController extends GetxController
       state.value = DataState.loading;
     }
 
-    await BaseClient(url: RequestUrls.postSearchDetails, body: bookingDetails)
+    await BaseClient(url: RequestUrls.postBookingDetails, body: bookingDetails)
         .post()
         .then(
       (value) {

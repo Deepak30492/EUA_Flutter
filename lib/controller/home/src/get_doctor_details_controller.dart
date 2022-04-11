@@ -73,7 +73,7 @@ class GetDoctorDetailsController extends GetxController with ExceptionHandler {
 
     await BaseClient(
             url:
-                "${RequestUrls.postSearchDetails}/message/$messageId?dhp_query_type=$getUrlType")
+                "${RequestUrls.postDiscoveryDetails}/message/$messageId?dhp_query_type=$getUrlType")
         .get()
         .then(
       (value) {

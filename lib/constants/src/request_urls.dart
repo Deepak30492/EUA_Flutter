@@ -1,18 +1,17 @@
 class RequestUrls {
   ///IP AND PORT
-  static String port = "";
-  static String ipAddress = "";
+  static String port = "80";
+  static String ipAddress = "3.208.12.38";
 
   ///HTTP, IP AND PORT
-  static const String httpIpPort =
-      "https://258b9ddd-7da3-4437-af3c-6d3a1e9926a3.mock.pstmn.io/api/v1/";
+  static String httpIpPort = "http://$ipAddress/api/v1/";
 
   ///URLS
-  static const String postSearchDetails = "${httpIpPort}search";
+  static String postDiscoveryDetails = "${httpIpPort}search";
 
-  static const String postDoctorDetails = "${httpIpPort}select";
+  static String postDoctorDetails = "${httpIpPort}select";
 
-  static const String postBookingDetails = "${httpIpPort}confirm";
+  static String postBookingDetails = "${httpIpPort}confirm";
 
-  static const String getDetails = "${httpIpPort}";
+  static String getDetails = "${httpIpPort}message";
 }

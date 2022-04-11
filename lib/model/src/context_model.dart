@@ -6,6 +6,8 @@ class ContextModel {
   String? coreVersion;
   String? messageId;
   String? timestamp;
+  String? consumerId;
+  String? consumerUri;
 
   ContextModel(
       {this.domain,
@@ -14,7 +16,9 @@ class ContextModel {
       this.action,
       this.coreVersion,
       this.messageId,
-      this.timestamp});
+      this.timestamp,
+      this.consumerId,
+      this.consumerUri});
 
   ContextModel.fromJson(Map<String, dynamic> json) {
     domain = json['domain'];
@@ -24,6 +28,8 @@ class ContextModel {
     coreVersion = json['core_version'];
     messageId = json['message_id'];
     timestamp = json['timestamp'];
+    consumerId = json['consumer_id'];
+    consumerUri = json['consumer_uri'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +41,9 @@ class ContextModel {
     data['core_version'] = this.coreVersion;
     data['message_id'] = this.messageId;
     data['timestamp'] = this.timestamp;
+    data['consumer_id'] = this.consumerId;
+    data['consumer_uri'] = this.consumerUri;
+
     return data;
   }
 }

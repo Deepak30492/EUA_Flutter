@@ -26,10 +26,11 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
       TextEditingController();
 
   ///DATA VARIABLES
-  String _dropdownValue = HealthcareTypes.professionalName;
+  String _dropdownValue = HealthcareTypes.serviceProviderName;
   final List<String> _listOfDropdownValues = [
+    HealthcareTypes.serviceProviderName,
     HealthcareTypes.professionalName,
-    HealthcareTypes.serviceName,
+    // HealthcareTypes.serviceName,
   ];
   bool isShowLocationDialog = false;
 
@@ -270,7 +271,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: Column(children: [
               Text(
-                "Discover a doctor",
+                "Search a doctor",
                 style: AppTextStyle.heading1TextStyle,
               ),
               const SizedBox(
@@ -334,6 +335,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
               child: TextField(
                 controller: _healthcareTextEditingController,
                 style: AppTextStyle.textFieldTextStyle,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Search a professional, service etc.",

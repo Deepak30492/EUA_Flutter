@@ -22,7 +22,7 @@ class BottomButtonWithFees extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: height * 0.06,
+        height: height * 0.08,
         decoration: BoxDecoration(
           boxShadow: AppShadows.shadow2,
           color: AppColors.white,

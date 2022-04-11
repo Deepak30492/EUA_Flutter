@@ -8,3 +8,5 @@ export 'src/fulfillments_model.dart';
 export 'src/healthcare_professional_name_request_model.dart';
 export 'src/healthcare_service_name_request_model.dart';
 export 'src/discovery_details_model.dart';
+export 'src/healthcare_service_provider_name.dart';
+export 'src/response_model.dart';

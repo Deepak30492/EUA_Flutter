@@ -28,7 +28,7 @@ class PostAppointmentDetailsController extends GetxController
     }
 
     await BaseClient(
-            url: RequestUrls.postSearchDetails, body: appointmentDetails)
+            url: RequestUrls.postDiscoveryDetails, body: appointmentDetails)
         .post()
         .then(
       (value) {
