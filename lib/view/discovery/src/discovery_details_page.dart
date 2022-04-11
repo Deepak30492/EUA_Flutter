@@ -62,9 +62,11 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   AcknowledgementModel? _acknowledgementModel;
   StreamSubscription? _streamSubscription;
   // StreamController _streamController = StreamController.broadcast();
-  ResponseModel? _responseModel;
-  DiscoveryDetailsModel? _discoveryDetailsModel;
-  List<Fulfillments>? _listOfFulfillments;
+  List<ResponseModel>? _listOfResponseModel;
+  List<DiscoveryDetailsModel>? _listOfDiscoveryDetailsModel =
+      List<DiscoveryDetailsModel>.empty(growable: true);
+  List<Fulfillments>? _listOfFulfillments =
+      List<Fulfillments>.empty(growable: true);
   String? _hospitalName;
   String? _categoryName;
   bool isShowLoadingIndicator = false;
@@ -91,12 +93,20 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   }
 
   callAPIs() async {
+    _postDiscoveryDetailsController.refresh();
+    _getDiscoveryDetailsController.refresh();
     setState(() {
       isShowLoadingIndicator = true;
     });
     _acknowledgementModel = await _postDiscoveryDetails(
         searchQuery: widget.searchHealthcareQuery,
         searchType: widget.healthcareType);
+
+    if (_acknowledgementModel == null) {
+      setState(() {
+        isShowLoadingIndicator = false;
+      });
+    }
 
     if (_acknowledgementModel?.message?.ack?.status == "ACK") {
       Timer.periodic(const Duration(milliseconds: 500), (timer) async {
@@ -474,7 +484,29 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
             Spacing(isWidth: false),
             isShowLoadingIndicator
                 ? const CommonLoadingIndicator()
-                : buildDoctorsList(),
+                : _postDiscoveryDetailsController.errorString.isNotEmpty ||
+                        _getDiscoveryDetailsController.errorString.isNotEmpty
+                    ? Container(
+                        height: height * 0.08,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Some error occurred ",
+                                style: AppTextStyle.subHeading4DarkTextStyle,
+                              ),
+                              Icon(
+                                Icons.error_outline_rounded,
+                                size: 20,
+                                color: AppColors.darkGrey323232,
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    : buildDoctorsList(),
           ],
         ),
       ),
@@ -482,16 +514,33 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   }
 
   buildDoctorsList() {
-    _responseModel = _getDiscoveryDetailsController.discoveryDetails;
-    _discoveryDetailsModel = DiscoveryDetailsModel.fromJson(
-        jsonDecode(_responseModel!.response!) as Map<String, dynamic>);
-    _listOfFulfillments =
-        _discoveryDetailsModel?.message?.catalog?.providers?[0].fulfillments;
-    _hospitalName =
-        "${_discoveryDetailsModel?.message?.catalog?.providers?[0].descriptor?.name} ";
-    _categoryName = _discoveryDetailsModel
-        ?.message?.catalog?.providers?[0].categories?[0].descriptor?.name;
+    _listOfResponseModel = _getDiscoveryDetailsController.discoveryDetails;
+
+    // _discoveryDetailsModel = DiscoveryDetailsModel.fromJson(
+    //     jsonDecode(_responseModel!.response!) as Map<String, dynamic>);
+    // _listOfFulfillments =
+    //     _discoveryDetailsModel?.message?.catalog?.providers?[0].fulfillments;
+    // _hospitalName =
+    //     "${_discoveryDetailsModel?.message?.catalog?.providers?[0].descriptor?.name} ";
+    // _categoryName = _discoveryDetailsModel
+    //     ?.message?.catalog?.providers?[0].categories?[0].descriptor?.name;
     // log("==> ${jsonEncode(_discoveryDetailsModel)}");
+
+    _listOfResponseModel?.forEach((element) {
+      _listOfDiscoveryDetailsModel?.add(DiscoveryDetailsModel.fromJson(
+          jsonDecode(element.response!) as Map<String, dynamic>));
+    });
+
+    _listOfDiscoveryDetailsModel?.forEach(
+      (element) {
+        if (element.message != null) {
+          element.message?.catalog?.providers?[0].fulfillments
+              ?.forEach((element) {
+            _listOfFulfillments?.add(element);
+          });
+        }
+      },
+    );
 
     return Column(
       children: [
@@ -524,7 +573,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
 
   buildDoctorTile(Fulfillments fulfillment) {
     String? doctorName = fulfillment.person?.name ?? "";
-    doctorName = doctorName + ", " + _categoryName!;
+    doctorName = doctorName;
     String? gender = fulfillment.person?.gender;
     return InkWell(
       onTap: () {

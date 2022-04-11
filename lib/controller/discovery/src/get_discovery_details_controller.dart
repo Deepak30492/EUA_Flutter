@@ -9,7 +9,7 @@ import 'package:uhi_eua_flutter_app/model/model.dart';
 class GetDiscoveryDetailsController extends GetxController
     with ExceptionHandler {
   ///DISCOVERY DETAILS
-  ResponseModel? discoveryDetails;
+  List<ResponseModel>? discoveryDetails;
 
   ///STATE
   var state = DataState.loading.obs;
@@ -30,10 +30,17 @@ class GetDiscoveryDetailsController extends GetxController
 
     await BaseClient(url: "${RequestUrls.getDetails}/$messageId").get().then(
       (value) {
-        if (value[0] == null) {
+        if (value == null) {
         } else {
-          ResponseModel responseModel = ResponseModel.fromJson(value[0]);
-          setDiscoveryDetails(discoveryDetailsModel: responseModel);
+          List tmpList = value;
+          List<ResponseModel>? listOfResponseModel =
+              List<ResponseModel>.empty(growable: true);
+
+          for (var index = 0; index < tmpList.length; index++) {
+            listOfResponseModel.add(ResponseModel.fromJson(tmpList[index]));
+          }
+
+          setDiscoveryDetails(discoveryDetailsModel: listOfResponseModel);
         }
       },
     ).catchError(
@@ -49,7 +56,7 @@ class GetDiscoveryDetailsController extends GetxController
     state.value = DataState.complete;
   }
 
-  setDiscoveryDetails({required ResponseModel? discoveryDetailsModel}) {
+  setDiscoveryDetails({required List<ResponseModel>? discoveryDetailsModel}) {
     if (discoveryDetailsModel == null) {
       return;
     }
@@ -60,6 +67,7 @@ class GetDiscoveryDetailsController extends GetxController
   @override
   refresh() async {
     discoveryDetails = null;
+    errorString = '';
 
     // ///GET DISCOVERY DETAILS
     // getDiscoveryDetails();
