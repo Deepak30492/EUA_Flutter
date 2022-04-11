@@ -22,7 +22,7 @@ class GetDiscoveryDetailsController extends GetxController
     super.onInit();
   }
 
-  Future<ResponseModel> getDiscoveryDetails(
+  Future<void> getDiscoveryDetails(
       {String? messageId, String? getUrlType}) async {
     if (discoveryDetails == null) {
       state.value = DataState.loading;
@@ -47,7 +47,6 @@ class GetDiscoveryDetailsController extends GetxController
     );
 
     state.value = DataState.complete;
-    return discoveryDetails!;
   }
 
   setDiscoveryDetails({required ResponseModel? discoveryDetailsModel}) {
@@ -60,7 +59,9 @@ class GetDiscoveryDetailsController extends GetxController
 
   @override
   refresh() async {
-    ///GET DISCOVERY DETAILS
-    getDiscoveryDetails();
+    discoveryDetails = null;
+
+    // ///GET DISCOVERY DETAILS
+    // getDiscoveryDetails();
   }
 }

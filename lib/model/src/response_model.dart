@@ -8,7 +8,7 @@ class ResponseModel {
   String? dhpQueryType;
   String? createdAt;
 
-  ResponseModel(computationCount,
+  ResponseModel(
       {this.id,
       this.messageId,
       this.consumerId,

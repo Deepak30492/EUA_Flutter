@@ -7,7 +7,7 @@ import 'app_exception.dart';
 
 class BaseClient {
   ///Timout duration
-  static const int timeOutDuration = 5;
+  static const int timeOutDuration = 15;
 
   final String? url;
   final dynamic body;
@@ -47,8 +47,8 @@ class BaseClient {
 
   //Post request to server
   Future<dynamic> post() async {
-    // log("Url ${url}", name: "URL");
-    // log("Request ${body}", name: "REQUEST");
+    log("Url ${url}", name: "URL");
+    log("Request ${jsonEncode(body)}", name: "REQUEST");
 
     try {
       var response = await client

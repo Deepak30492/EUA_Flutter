@@ -67,6 +67,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   List<Fulfillments>? _listOfFulfillments;
   String? _hospitalName;
   String? _categoryName;
+  bool isShowLoadingIndicator = false;
 
   @override
   void initState() {
@@ -75,9 +76,9 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
     _healthcareTextEditingController.text = widget.searchHealthcareQuery;
     _symptomsTextEditingController.text = widget.searchSymptomsQuery;
     // _streamController.addStream(_getSearchDetails());
-    _streamSubscription = _getSearchDetails().listen(
-      (event) {},
-    );
+    // _streamSubscription = _getSearchDetails().listen(
+    //   (event) {},
+    // );
     callAPIs();
   }
 
@@ -90,9 +91,39 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   }
 
   callAPIs() async {
+    setState(() {
+      isShowLoadingIndicator = true;
+    });
     _acknowledgementModel = await _postDiscoveryDetails(
         searchQuery: widget.searchHealthcareQuery,
         searchType: widget.healthcareType);
+
+    if (_acknowledgementModel?.message?.ack?.status == "ACK") {
+      Timer.periodic(const Duration(milliseconds: 500), (timer) async {
+        if (_getDiscoveryDetailsController.discoveryDetails != null) {
+          _uniqueId = null;
+          print("1");
+          setState(() {
+            isShowLoadingIndicator = false;
+          });
+
+          timer.cancel();
+        } else if (_getDiscoveryDetailsController.errorString.isNotEmpty) {
+          print("2");
+
+          setState(() {
+            isShowLoadingIndicator = false;
+          });
+
+          timer.cancel();
+        } else if (_getDiscoveryDetailsController.discoveryDetails == null) {
+          print("3");
+
+          await _getDiscoveryDetailsController.getDiscoveryDetails(
+              messageId: _uniqueId, getUrlType: "search");
+        }
+      });
+    }
   }
 
   Future<AcknowledgementModel?> _postDiscoveryDetails(
@@ -181,25 +212,25 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
     return _postDiscoveryDetailsController.discoveryDetails;
   }
 
-  Stream _getSearchDetails() => Stream.periodic(
-        const Duration(milliseconds: 500),
-        (computationCount) async {
-          if (_acknowledgementModel?.message?.ack?.status == "ACK") {
-            if (_getDiscoveryDetailsController.discoveryDetails != null) {
-              _uniqueId = null;
-              _streamSubscription?.cancel();
-              return;
-            } else if (_getDiscoveryDetailsController.errorString.isNotEmpty) {
-              _streamSubscription?.cancel();
-              return;
-            } else if (_getDiscoveryDetailsController.discoveryDetails ==
-                null) {
-              await _getDiscoveryDetailsController.getDiscoveryDetails(
-                  messageId: _uniqueId, getUrlType: "search");
-            }
-          }
-        },
-      );
+  // Stream _getSearchDetails() => Stream.periodic(
+  //       const Duration(milliseconds: 500),
+  //       (computationCount) async {
+  //         if (_acknowledgementModel?.message?.ack?.status == "ACK") {
+  //           if (_getDiscoveryDetailsController.discoveryDetails != null) {
+  //             _uniqueId = null;
+  //             _streamSubscription?.cancel();
+  //             return;
+  //           } else if (_getDiscoveryDetailsController.errorString.isNotEmpty) {
+  //             _streamSubscription?.cancel();
+  //             return;
+  //           } else if (_getDiscoveryDetailsController.discoveryDetails ==
+  //               null) {
+  //             await _getDiscoveryDetailsController.getDiscoveryDetails(
+  //                 messageId: _uniqueId, getUrlType: "search");
+  //           }
+  //         }
+  //       },
+  //     );
 
   @override
   Widget build(BuildContext context) {
@@ -272,47 +303,38 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
           ),
         ),
       ),
-      body: StreamBuilder(
-          stream: _getSearchDetails(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Container(
-                  child: Center(
-                    child: Text(
-                      "Something went wrong",
-                      style: AppTextStyle.subHeading1TextStyle,
-                    ),
-                  ),
-                );
+      body: buildWidgets(),
 
-              case ConnectionState.waiting:
-                return CommonLoadingIndicator();
+      // body: StreamBuilder(
+      //     stream: _getSearchDetails(),
+      //     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+      //       switch (snapshot.connectionState) {
+      //         case ConnectionState.none:
+      //           return Container(
+      //             child: Center(
+      //               child: Text(
+      //                 "Something went wrong",
+      //                 style: AppTextStyle.subHeading1TextStyle,
+      //               ),
+      //             ),
+      //           );
 
-              case ConnectionState.active:
-                return _getDiscoveryDetailsController.discoveryDetails != null
-                    ? buildWidgets()
-                    : CommonLoadingIndicator();
+      //         case ConnectionState.waiting:
+      //           return CommonLoadingIndicator();
 
-              case ConnectionState.done:
-                return buildWidgets();
-            }
-          }),
+      //         case ConnectionState.active:
+      //           return _getDiscoveryDetailsController.discoveryDetails != null
+      //               ? buildWidgets()
+      //               : CommonLoadingIndicator();
+
+      //         case ConnectionState.done:
+      //           return buildWidgets();
+      //       }
+      //     }),
     );
   }
 
   buildWidgets() {
-    _responseModel = _getDiscoveryDetailsController.discoveryDetails;
-    _discoveryDetailsModel = DiscoveryDetailsModel.fromJson(
-        jsonDecode(_responseModel!.response!) as Map<String, dynamic>);
-    _listOfFulfillments =
-        _discoveryDetailsModel?.message?.catalog?.providers?[0].fulfillments;
-    _hospitalName =
-        "${_discoveryDetailsModel?.message?.catalog?.providers?[0].descriptor?.name} ";
-    _categoryName = _discoveryDetailsModel
-        ?.message?.catalog?.providers?[0].categories?[0].descriptor?.name;
-    log("==> ${jsonEncode(_discoveryDetailsModel)}");
-
     return Container(
       width: width,
       height: height,
@@ -396,9 +418,9 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                               : null,
                     ),
                     onEditingComplete: () {
-                      print("In here");
                       if (_healthcareTextEditingController.text.isNotEmpty) {
-                        print("In ");
+                        _getDiscoveryDetailsController.refresh();
+                        callAPIs();
                       }
                     },
                   ),
@@ -450,15 +472,9 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
               ),
             ),
             Spacing(isWidth: false),
-            Container(
-              width: width * 0.94,
-              child: Text(
-                "${_listOfFulfillments?.length} results found",
-                style: AppTextStyle.textFieldHintTextStyle,
-              ),
-            ),
-            Spacing(isWidth: false),
-            buildDoctorsList(),
+            isShowLoadingIndicator
+                ? const CommonLoadingIndicator()
+                : buildDoctorsList(),
           ],
         ),
       ),
@@ -466,17 +482,43 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   }
 
   buildDoctorsList() {
-    return Container(
-      width: width * 0.94,
-      height: height,
-      child: ListView.builder(
-        // itemCount: 5,
-        itemCount: _listOfFulfillments?.length,
-        physics: const ClampingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return buildDoctorTile(_listOfFulfillments![index]);
-        },
-      ),
+    _responseModel = _getDiscoveryDetailsController.discoveryDetails;
+    _discoveryDetailsModel = DiscoveryDetailsModel.fromJson(
+        jsonDecode(_responseModel!.response!) as Map<String, dynamic>);
+    _listOfFulfillments =
+        _discoveryDetailsModel?.message?.catalog?.providers?[0].fulfillments;
+    _hospitalName =
+        "${_discoveryDetailsModel?.message?.catalog?.providers?[0].descriptor?.name} ";
+    _categoryName = _discoveryDetailsModel
+        ?.message?.catalog?.providers?[0].categories?[0].descriptor?.name;
+    // log("==> ${jsonEncode(_discoveryDetailsModel)}");
+
+    return Column(
+      children: [
+        Container(
+          width: width * 0.94,
+          child: Text(
+            "${_listOfFulfillments?.length}" +
+                (_listOfFulfillments != null && _listOfFulfillments!.length <= 1
+                    ? " result found"
+                    : " results found"),
+            style: AppTextStyle.textFieldHintTextStyle,
+          ),
+        ),
+        Spacing(isWidth: false),
+        Container(
+          width: width * 0.94,
+          height: height,
+          child: ListView.builder(
+            // itemCount: 5,
+            itemCount: _listOfFulfillments?.length,
+            physics: const ClampingScrollPhysics(),
+            itemBuilder: (context, index) {
+              return buildDoctorTile(_listOfFulfillments![index]);
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -520,6 +562,10 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                 );
               },
               placeholder: (context, url) => Center(
+                  child: Container(
+                width: width * 0.3,
+                height: height * 0.16,
+                child: Center(
                   child: SizedBox(
                       width: 20,
                       height: 20,
@@ -528,7 +574,9 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                         valueColor: AlwaysStoppedAnimation<Color>(
                           AppColors.primaryLightBlue007BFF,
                         ),
-                      ))),
+                      )),
+                ),
+              )),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             Expanded(
