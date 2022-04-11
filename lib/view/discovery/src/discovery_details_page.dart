@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/constants/src/healthcare_types.dart';
@@ -487,6 +489,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
         Get.to(() => FulfillmentDetailsPage(
               fulfillmentName: doctorName!,
               fulfillmentHospital: _hospitalName!,
+              fulfillmentImageUrl: fulfillment.person!.image!,
             ));
       },
       child: Container(
@@ -500,15 +503,33 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
         ),
         child: Row(
           children: [
-            Container(
-              width: width * 0.3,
-              height: height * 0.16,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: Image.network("https://picsum.photos/200").image,
-                  fit: BoxFit.fill,
-                ),
-              ),
+            CachedNetworkImage(
+              imageUrl: fulfillment.person!.image!,
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  width: width * 0.3,
+                  height: height * 0.16,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: fulfillment.person!.image!.contains("https")
+                          ? imageProvider
+                          : Image.file(File(fulfillment.person!.image!)).image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+              placeholder: (context, url) => Center(
+                  child: SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        backgroundColor: AppColors.secondaryOrangeFF8A07,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          AppColors.primaryLightBlue007BFF,
+                        ),
+                      ))),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             Expanded(
               child: Container(

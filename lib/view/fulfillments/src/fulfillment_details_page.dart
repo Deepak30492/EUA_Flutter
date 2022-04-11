@@ -8,10 +8,13 @@ import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 class FulfillmentDetailsPage extends StatefulWidget {
   String fulfillmentName;
   String fulfillmentHospital;
+  String fulfillmentImageUrl;
+
   FulfillmentDetailsPage(
       {Key? key,
       required this.fulfillmentName,
-      required this.fulfillmentHospital})
+      required this.fulfillmentHospital,
+      required this.fulfillmentImageUrl})
       : super(key: key);
 
   @override
@@ -70,7 +73,7 @@ class _FulfillmentDetailsPageState extends State<FulfillmentDetailsPage> {
             children: [
               FulfillmentImageAndLocation(
                 width: width,
-                imageUrl: "",
+                imageUrl: widget.fulfillmentImageUrl,
                 hospitalName: widget.fulfillmentHospital,
                 distance: "",
               ),
