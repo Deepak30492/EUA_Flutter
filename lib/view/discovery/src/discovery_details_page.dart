@@ -105,7 +105,8 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
         searchQuery: widget.searchHealthcareQuery,
         searchType: widget.healthcareType);
 
-    if (_acknowledgementModel == null) {
+    if (_acknowledgementModel == null ||
+        _acknowledgementModel?.message?.ack == null) {
       setState(() {
         isShowLoadingIndicator = false;
       });
@@ -488,7 +489,9 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
             isShowLoadingIndicator
                 ? const CommonLoadingIndicator()
                 : _postDiscoveryDetailsController.errorString.isNotEmpty ||
-                        _getDiscoveryDetailsController.errorString.isNotEmpty
+                        _getDiscoveryDetailsController.errorString.isNotEmpty ||
+                        _acknowledgementModel == null ||
+                        _acknowledgementModel?.message?.ack == null
                     ? Container(
                         height: height * 0.08,
                         child: Center(
@@ -585,7 +588,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
     String? doctorName = fulfillment.person?.name ?? "";
     String? gender = fulfillment.person?.gender;
     String? tags = fulfillment.tags?.speciality;
-    doctorName = doctorName + ", " + (tags ?? "Hi");
+    doctorName = doctorName + ", " + (tags ?? "Orthopedic Surgeon");
 
     return InkWell(
       onTap: () async {
