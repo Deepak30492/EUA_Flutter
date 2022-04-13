@@ -211,7 +211,7 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
               onTap: () {
-                Get.offAll(const DiscoverFulfillmentPage());
+                Get.offAll(() => const DiscoverFulfillmentPage());
               },
             ),
           ),

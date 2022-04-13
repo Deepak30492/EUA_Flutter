@@ -12,7 +12,7 @@ enum DataState { loading, complete }
 class PostDiscoveryDetailsController extends GetxController
     with ExceptionHandler {
   ///DISCOVERY DETAILS
-  AcknowledgementModel? discoveryDetails;
+  AcknowledgementModel? discoveryAckDetails;
 
   ///STATE
   var state = DataState.loading.obs;
@@ -61,7 +61,7 @@ class PostDiscoveryDetailsController extends GetxController
       return;
     }
 
-    discoveryDetails = acknowledgementModel;
+    discoveryAckDetails = acknowledgementModel;
   }
 
   @override

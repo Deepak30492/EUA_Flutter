@@ -67,6 +67,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
       List<DiscoveryDetailsModel>.empty(growable: true);
   List<Fulfillments>? _listOfFulfillments =
       List<Fulfillments>.empty(growable: true);
+  FocusNode _focusNode = FocusNode();
   String? _hospitalName;
   String? _categoryName;
   bool isShowLoadingIndicator = false;
@@ -93,8 +94,10 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   }
 
   callAPIs() async {
-    _postDiscoveryDetailsController.refresh();
-    _getDiscoveryDetailsController.refresh();
+    // _postDiscoveryDetailsController.refresh();
+    // _getDiscoveryDetailsController.refresh();
+    clearAll();
+
     setState(() {
       isShowLoadingIndicator = true;
     });
@@ -112,23 +115,16 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
       Timer.periodic(const Duration(milliseconds: 500), (timer) async {
         if (_getDiscoveryDetailsController.discoveryDetails != null) {
           _uniqueId = null;
-          print("1");
           setState(() {
             isShowLoadingIndicator = false;
           });
-
           timer.cancel();
         } else if (_getDiscoveryDetailsController.errorString.isNotEmpty) {
-          print("2");
-
           setState(() {
             isShowLoadingIndicator = false;
           });
-
           timer.cancel();
         } else if (_getDiscoveryDetailsController.discoveryDetails == null) {
-          print("3");
-
           await _getDiscoveryDetailsController.getDiscoveryDetails(
               messageId: _uniqueId, getUrlType: "search");
         }
@@ -219,7 +215,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
           discoveryType: HealthcareTypes.professionalName);
     }
 
-    return _postDiscoveryDetailsController.discoveryDetails;
+    return _postDiscoveryDetailsController.discoveryAckDetails;
   }
 
   // Stream _getSearchDetails() => Stream.periodic(
@@ -401,6 +397,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                 children: [
                   TextField(
                     controller: _healthcareTextEditingController,
+                    focusNode: _focusNode,
                     style: AppTextStyle.textFieldTextStyle,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -414,6 +411,12 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                                   onTap: () {
                                     setState(() {
                                       _healthcareTextEditingController.clear();
+                                      // _getDiscoveryDetailsController.refresh();
+                                      // _postDiscoveryDetailsController.refresh();
+                                      // _listOfResponseModel?.clear();
+                                      // _listOfDiscoveryDetailsModel?.clear();
+                                      // _listOfFulfillments?.clear();
+                                      clearAll();
                                     });
                                   },
                                   child: Padding(
@@ -429,8 +432,8 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
                     ),
                     onEditingComplete: () {
                       if (_healthcareTextEditingController.text.isNotEmpty) {
-                        _getDiscoveryDetailsController.refresh();
                         callAPIs();
+                        _focusNode.unfocus();
                       }
                     },
                   ),
@@ -514,33 +517,40 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   }
 
   buildDoctorsList() {
-    _listOfResponseModel = _getDiscoveryDetailsController.discoveryDetails;
+    if (_getDiscoveryDetailsController.discoveryDetails != null &&
+        _listOfFulfillments!.isEmpty) {
+      _listOfResponseModel = _getDiscoveryDetailsController.discoveryDetails;
 
-    // _discoveryDetailsModel = DiscoveryDetailsModel.fromJson(
-    //     jsonDecode(_responseModel!.response!) as Map<String, dynamic>);
-    // _listOfFulfillments =
-    //     _discoveryDetailsModel?.message?.catalog?.providers?[0].fulfillments;
-    // _hospitalName =
-    //     "${_discoveryDetailsModel?.message?.catalog?.providers?[0].descriptor?.name} ";
-    // _categoryName = _discoveryDetailsModel
-    //     ?.message?.catalog?.providers?[0].categories?[0].descriptor?.name;
-    // log("==> ${jsonEncode(_discoveryDetailsModel)}");
+      // _discoveryDetailsModel = DiscoveryDetailsModel.fromJson(
+      //     jsonDecode(_responseModel!.response!) as Map<String, dynamic>);
+      // _listOfFulfillments =
+      //     _discoveryDetailsModel?.message?.catalog?.providers?[0].fulfillments;
+      // _hospitalName =
+      //     "${_discoveryDetailsModel?.message?.catalog?.providers?[0].descriptor?.name} ";
+      // _categoryName = _discoveryDetailsModel
+      //     ?.message?.catalog?.providers?[0].categories?[0].descriptor?.name;
+      // log("==> ${jsonEncode(_discoveryDetailsModel)}");
 
-    _listOfResponseModel?.forEach((element) {
-      _listOfDiscoveryDetailsModel?.add(DiscoveryDetailsModel.fromJson(
-          jsonDecode(element.response!) as Map<String, dynamic>));
-    });
+      _listOfResponseModel?.forEach((element) {
+        _listOfDiscoveryDetailsModel?.add(DiscoveryDetailsModel.fromJson(
+            jsonDecode(element.response!) as Map<String, dynamic>));
+      });
 
-    _listOfDiscoveryDetailsModel?.forEach(
-      (element) {
-        if (element.message != null) {
-          element.message?.catalog?.providers?[0].fulfillments
-              ?.forEach((element) {
-            _listOfFulfillments?.add(element);
-          });
-        }
-      },
-    );
+      // log("==> ${jsonEncode(_listOfDiscoveryDetailsModel)}");
+
+      _listOfDiscoveryDetailsModel?.forEach(
+        (element) {
+          if (element.message != null) {
+            _hospitalName =
+                "${element.message?.catalog?.providers?[0].descriptor?.name} ";
+            element.message?.catalog?.providers?[0].fulfillments
+                ?.forEach((element) {
+              _listOfFulfillments?.add(element);
+            });
+          }
+        },
+      );
+    }
 
     return Column(
       children: [
@@ -573,13 +583,15 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
 
   buildDoctorTile(Fulfillments fulfillment) {
     String? doctorName = fulfillment.person?.name ?? "";
-    doctorName = doctorName;
     String? gender = fulfillment.person?.gender;
+    String? tags = fulfillment.tags?.speciality;
+    doctorName = doctorName + ", " + (tags ?? "Hi");
+
     return InkWell(
-      onTap: () {
-        Get.to(() => FulfillmentDetailsPage(
-              fulfillmentName: doctorName!,
-              fulfillmentHospital: _hospitalName!,
+      onTap: () async {
+        final result = await Get.to(() => FulfillmentDetailsPage(
+              fulfillmentName: doctorName ?? "",
+              fulfillmentHospital: _hospitalName ?? "",
               fulfillmentImageUrl: fulfillment.person!.image!,
             ));
       },
@@ -706,5 +718,13 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
         ),
       ),
     );
+  }
+
+  clearAll() {
+    _getDiscoveryDetailsController.refresh();
+    _postDiscoveryDetailsController.refresh();
+    _listOfResponseModel?.clear();
+    _listOfDiscoveryDetailsModel?.clear();
+    _listOfFulfillments?.clear();
   }
 }

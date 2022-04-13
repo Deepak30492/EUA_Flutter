@@ -4,8 +4,10 @@ class Fulfillments {
   Person? person;
   Start? start;
   Start? end;
+  FulfillmentsTags? tags;
 
-  Fulfillments({this.id, this.type, this.person, this.start, this.end});
+  Fulfillments(
+      {this.id, this.type, this.person, this.start, this.end, this.tags});
 
   Fulfillments.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -14,6 +16,9 @@ class Fulfillments {
         json['person'] != null ? new Person.fromJson(json['person']) : null;
     start = json['start'] != null ? new Start.fromJson(json['start']) : null;
     end = json['end'] != null ? new Start.fromJson(json['end']) : null;
+    tags = json['tags'] != null
+        ? new FulfillmentsTags.fromJson(json['tags'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -28,6 +33,9 @@ class Fulfillments {
     }
     if (this.end != null) {
       data['end'] = this.end!.toJson();
+    }
+    if (this.tags != null) {
+      data['tags'] = this.tags!.toJson();
     }
     return data;
   }
@@ -91,6 +99,22 @@ class Time {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['timestamp'] = this.timestamp;
+    return data;
+  }
+}
+
+class FulfillmentsTags {
+  String? speciality;
+
+  FulfillmentsTags({this.speciality});
+
+  FulfillmentsTags.fromJson(Map<String, dynamic> json) {
+    speciality = json['speciality'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['speciality'] = this.speciality;
     return data;
   }
 }

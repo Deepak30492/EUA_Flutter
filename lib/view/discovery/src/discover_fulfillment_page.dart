@@ -271,7 +271,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: Column(children: [
               Text(
-                "Search a doctor",
+                "Search",
                 style: AppTextStyle.heading1TextStyle,
               ),
               const SizedBox(
@@ -394,7 +394,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
               ),
               child: Center(
                 child: Text(
-                  "Discover Doctors",
+                  "Search",
                   style: AppTextStyle.button1TextStyle,
                 ),
               ),
