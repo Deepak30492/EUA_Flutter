@@ -71,6 +71,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
   String? _hospitalName;
   String? _categoryName;
   bool isShowLoadingIndicator = false;
+  String? _providerId;
 
   @override
   void initState() {
@@ -546,6 +547,8 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
           if (element.message != null) {
             _hospitalName =
                 "${element.message?.catalog?.providers?[0].descriptor?.name} ";
+            _providerId = "${element.message?.catalog?.providers?[0].id} ";
+
             element.message?.catalog?.providers?[0].fulfillments
                 ?.forEach((element) {
               _listOfFulfillments?.add(element);
@@ -589,6 +592,7 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
     String? gender = fulfillment.person?.gender;
     String? tags = fulfillment.tags?.speciality;
     doctorName = doctorName + ", " + (tags ?? "Orthopedic Surgeon");
+    String? doctorId = fulfillment.id;
 
     return InkWell(
       onTap: () async {
@@ -596,6 +600,8 @@ class _DiscoveryDetailsPageState extends State<DiscoveryDetailsPage> {
               fulfillmentName: doctorName ?? "",
               fulfillmentHospital: _hospitalName ?? "",
               fulfillmentImageUrl: fulfillment.person!.image!,
+              fulfillmentId: doctorId ?? "",
+              fulfillmentProviderId: _providerId ?? "",
             ));
       },
       child: Container(

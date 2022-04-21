@@ -6,12 +6,13 @@ class RequestUrls {
   ///HTTP, IP AND PORT
   static String httpIpPort = "http://$ipAddress/api/v1/";
 
-  ///URLS
+  ///POST URLS
   static String postDiscoveryDetails = "${httpIpPort}search";
 
-  static String postDoctorDetails = "${httpIpPort}select";
+  static String postFulfillmentDetails = "${httpIpPort}select";
 
   static String postBookingDetails = "${httpIpPort}confirm";
 
+  //GET URLS
   static String getDetails = "${httpIpPort}message";
 }

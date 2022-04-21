@@ -40,7 +40,8 @@ class GetDoctorDetailsController extends GetxController with ExceptionHandler {
       paginationLoading.value = true;
     }
 
-    await BaseClient(url: RequestUrls.postDoctorDetails, body: doctorDetails)
+    await BaseClient(
+            url: RequestUrls.postFulfillmentDetails, body: doctorDetails)
         .post()
         .then(
       (value) {

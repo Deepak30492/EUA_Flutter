@@ -9,7 +9,7 @@ import 'package:uhi_eua_flutter_app/model/model.dart';
 class PostFulfillmentDetailsController extends GetxController
     with ExceptionHandler {
   ///DISCOVERY DETAILS
-  var fulfillmentDetails;
+  AcknowledgementModel? fulfillmentAckDetails;
 
   ///STATE
   var state = DataState.loading.obs;
@@ -28,7 +28,7 @@ class PostFulfillmentDetailsController extends GetxController
     }
 
     await BaseClient(
-            url: RequestUrls.postDoctorDetails, body: fulfillmentDetails)
+            url: RequestUrls.postFulfillmentDetails, body: fulfillmentDetails)
         .post()
         .then(
       (value) {
@@ -57,12 +57,14 @@ class PostFulfillmentDetailsController extends GetxController
       return;
     }
 
-    fulfillmentDetails = acknowledgementModel;
+    fulfillmentAckDetails = acknowledgementModel;
   }
 
   @override
   refresh() async {
+    errorString = '';
+
     ///POST FULFILLMENT DETAILS
-    postFulfillmentDetails();
+    // postFulfillmentDetails();
   }
 }
