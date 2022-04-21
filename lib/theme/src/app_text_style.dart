@@ -11,6 +11,12 @@ class AppTextStyle {
         fontSize: 18,
       );
 
+  static get appbarTitleTextStyle => GoogleFonts.arimo(
+        color: AppColors.black,
+        fontWeight: FontWeight.w600,
+        fontSize: 18,
+      );
+
   ///HEADINGS
   static get heading1TextStyle => GoogleFonts.inter(
         color: AppColors.primaryLightBlue007BFF,
@@ -18,10 +24,10 @@ class AppTextStyle {
         fontSize: 30,
       );
 
-  static get heading2TextStyle => GoogleFonts.openSans(
-        color: Colors.black,
-        fontWeight: FontWeight.w600,
-        fontSize: 24,
+  static get heading2TextStyle => GoogleFonts.roboto(
+        color: Colors.white,
+        fontWeight: FontWeight.w700,
+        fontSize: 30,
       );
 
   static get heading3TextStyle => GoogleFonts.openSans(
@@ -37,8 +43,8 @@ class AppTextStyle {
       );
 
   ///SUB HEADINGS
-  static get subHeading1TextStyle => GoogleFonts.openSans(
-        color: Colors.black,
+  static get subHeading1TextStyle => GoogleFonts.roboto(
+        color: Colors.white,
         fontWeight: FontWeight.w600,
         fontSize: 18,
       );
@@ -49,10 +55,10 @@ class AppTextStyle {
         fontSize: 16,
       );
 
-  static get subHeading3TextStyle => GoogleFonts.inter(
-        color: AppColors.black,
-        fontWeight: FontWeight.w600,
-        fontSize: 14,
+  static get subHeading3TextStyle => GoogleFonts.roboto(
+        color: Color(0xFF1B1C20),
+        fontWeight: FontWeight.w700,
+        fontSize: 18,
       );
 
   static get subHeading3LightGreyTextStyle => GoogleFonts.inter(
@@ -61,10 +67,10 @@ class AppTextStyle {
         fontSize: 14,
       );
 
-  static get subHeading4TextStyle => GoogleFonts.openSans(
-        color: AppColors.grey8B8B8B,
-        fontWeight: FontWeight.w400,
-        fontSize: 12,
+  static get subHeading4TextStyle => GoogleFonts.roboto(
+        color: Color(0xFF394050),
+        fontWeight: FontWeight.w700,
+        fontSize: 15,
       );
 
   static get subHeading4DarkTextStyle => GoogleFonts.openSans(
@@ -130,10 +136,10 @@ class AppTextStyle {
         fontSize: 12,
       );
 
-  static get textFieldHintTextStyle => GoogleFonts.openSans(
-        color: AppColors.greyHint828282,
+  static get textFieldHintTextStyle => GoogleFonts.roboto(
+        color: const Color(0xFF798186),
         fontWeight: FontWeight.w400,
-        fontSize: 12,
+        fontSize: 15,
       );
 
   ///DROPDOWN
