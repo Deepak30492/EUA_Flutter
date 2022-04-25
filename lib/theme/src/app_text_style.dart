@@ -36,9 +36,9 @@ class AppTextStyle {
         fontSize: 20,
       );
 
-  static get heading4TextStyle => GoogleFonts.openSans(
-        color: Colors.black,
-        fontWeight: FontWeight.w600,
+  static get heading4TextStyle => GoogleFonts.roboto(
+        color: Color(0xFF394050),
+        fontWeight: FontWeight.w700,
         fontSize: 16,
       );
 
@@ -56,9 +56,27 @@ class AppTextStyle {
       );
 
   static get subHeading3TextStyle => GoogleFonts.roboto(
-        color: Color(0xFF1B1C20),
+        color: Color(0xFF394050),
         fontWeight: FontWeight.w700,
-        fontSize: 18,
+        fontSize: 15,
+      );
+
+  static get subHeading3LightTextStyle => GoogleFonts.roboto(
+        color: Color(0xFF394050),
+        fontWeight: FontWeight.w400,
+        fontSize: 15,
+      );
+
+  static get subHeading4LightTextStyle => GoogleFonts.roboto(
+        color: Color(0xFF394050),
+        fontWeight: FontWeight.w300,
+        fontSize: 12,
+      );
+
+  static get subHeading4MediumTextStyle => GoogleFonts.roboto(
+        color: Color(0xFF394050),
+        fontWeight: FontWeight.w500,
+        fontSize: 12,
       );
 
   static get subHeading3LightGreyTextStyle => GoogleFonts.inter(
@@ -123,6 +141,12 @@ class AppTextStyle {
         fontSize: 13,
       );
 
+  static get textBtnTextStyle => GoogleFonts.roboto(
+        color: Color(0xFF394050),
+        fontWeight: FontWeight.w300,
+        fontSize: 12,
+      );
+
   static get button2TextStyle => GoogleFonts.inter(
         color: AppColors.white,
         fontWeight: FontWeight.w600,
@@ -140,6 +164,18 @@ class AppTextStyle {
         color: const Color(0xFF798186),
         fontWeight: FontWeight.w400,
         fontSize: 15,
+      );
+
+  static get textFieldHint2TextStyle => GoogleFonts.roboto(
+        color: const Color(0xFF394050),
+        fontWeight: FontWeight.w300,
+        fontSize: 14,
+      );
+
+  static get textFieldHint2WhiteTextStyle => GoogleFonts.roboto(
+        color: Colors.white,
+        fontWeight: FontWeight.w300,
+        fontSize: 14,
       );
 
   ///DROPDOWN
@@ -213,5 +249,17 @@ class AppTextStyle {
         color: AppColors.primaryLightBlue007BFF,
         fontWeight: FontWeight.w600,
         fontSize: 16,
+      );
+
+  static get buttonOrangeTextStyle => GoogleFonts.montserrat(
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+        fontSize: 12,
+      );
+
+  static get buttonBlueTextStyle => GoogleFonts.roboto(
+        color: Color(0xFF264488),
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
       );
 }
