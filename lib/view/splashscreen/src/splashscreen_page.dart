@@ -58,13 +58,24 @@ class SplashScreenPageState extends State<SplashScreenPage> {
       body: Container(
         decoration: const BoxDecoration(color: Colors.white),
         alignment: Alignment.center,
-        child: Hero(
-          tag: 'splash',
-          child: Center(
-            child: Image.asset(
-              'assets/images/logo.png',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Welcome to",
+              style: AppTextStyle.splashScreenText,
             ),
-          ),
+            SizedBox(
+              height: 300,
+              width: 400,
+              child: Center(
+                child: Image.asset(
+                  'assets/images/Mask Group 2.png',
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
