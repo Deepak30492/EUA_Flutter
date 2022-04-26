@@ -226,6 +226,11 @@ class AppTextStyle {
         fontWeight: FontWeight.w300,
         fontSize: 14,
       );
+  static get splashScreenText => GoogleFonts.roboto(
+        color: AppColors.doctorNameColor,
+        fontWeight: FontWeight.w300,
+        fontSize: 20,
+      );
 
   static get doctorExperienceText => GoogleFonts.roboto(
         color: AppColors.doctorExperienceColor,

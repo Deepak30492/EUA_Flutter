@@ -253,6 +253,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       width: 60,
