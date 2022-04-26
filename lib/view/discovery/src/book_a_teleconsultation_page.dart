@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
+import 'package:uhi_eua_flutter_app/view/appointment_history/src/appointment_history_page.dart';
+import 'package:uhi_eua_flutter_app/view/search_results/src/search_results_page.dart';
 import 'package:uhi_eua_flutter_app/widgets/src/spacing.dart';
 
 class BookATeleconsultationPage extends StatefulWidget {
@@ -403,36 +406,46 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
               ),
             ),
             Spacing(size: 20, isWidth: false),
-            Container(
-              width: width * 0.86,
-              height: height * 0.06,
-              // padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-              decoration: BoxDecoration(
-                color: Color(0xFFE8705A),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: Text(
-                  "FIND DOCTOR",
-                  style: AppTextStyle.buttonOrangeTextStyle,
+            InkWell(
+              onTap: () {
+                Get.to(() => SearchResultPage());
+              },
+              child: Container(
+                width: width * 0.86,
+                height: height * 0.06,
+                // padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                decoration: BoxDecoration(
+                  color: Color(0xFFE8705A),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    "FIND DOCTOR",
+                    style: AppTextStyle.buttonOrangeTextStyle,
+                  ),
                 ),
               ),
             ),
             Spacing(size: 30, isWidth: false),
-            Container(
-              width: width * 0.76,
-              height: height * 0.06,
-              // padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(
-                    width: 1,
-                    color: Color(0xFF264488),
-                  )),
-              child: Center(
-                child: Text(
-                  "View appointment history",
-                  style: AppTextStyle.buttonBlueTextStyle,
+            InkWell(
+              onTap: () {
+                Get.to(() => AppointmentHistoryPage());
+              },
+              child: Container(
+                width: width * 0.76,
+                height: height * 0.06,
+                // padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                      width: 1,
+                      color: Color(0xFF264488),
+                    )),
+                child: Center(
+                  child: Text(
+                    "View appointment history",
+                    style: AppTextStyle.buttonBlueTextStyle,
+                  ),
                 ),
               ),
             ),
