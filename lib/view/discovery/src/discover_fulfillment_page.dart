@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/discovery/src/discovery_details_page.dart';
+import 'package:uhi_eua_flutter_app/view/appointment_history/src/appointment_history_page.dart';
+import 'package:uhi_eua_flutter_app/view/search_results/search_result.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class DiscoverFulfillmentPage extends StatefulWidget {
@@ -368,7 +369,7 @@ class _DiscoverFulfillmentPageState extends State<DiscoverFulfillmentPage> {
           space(size: 30, isWidth: false),
           InkWell(
             onTap: () {
-              Get.to(() => const DiscoveryDetailsPage());
+              Get.to(() => const SearchResultPage());
             },
             child: Container(
               width: width * 0.9,

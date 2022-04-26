@@ -17,6 +17,11 @@ class AppColors {
   static const Color textColor = Color(0xFF363636);
   static const Color _darkThemeWhiteColor = Colors.red;
   static const Color confirmTextColor = Color(0xFF00CC39);
+  static const Color doctorNameColor = Color(0xFF334856);
+  static const Color doctorExperienceColor = Color(0xFF798186);
+  static const Color amountColor = Color(0xFFE8705A);
+  static const Color tileColors = Color(0xFF264488);
+  static const Color infoIconColor = Color(0xFF324755);
   static const Color linkTextColor = Color(0xFF0052CC);
   static const Color loginBackgroundColor = Color.fromARGB(255, 245, 247, 252);
 

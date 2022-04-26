@@ -134,6 +134,12 @@ class AppTextStyle {
         fontSize: 12,
       );
 
+  static get amountText => GoogleFonts.roboto(
+        color: AppColors.amountColor,
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
+      );
+
   ///BUTTON
   static get button1TextStyle => GoogleFonts.inter(
         color: AppColors.white,
@@ -221,7 +227,7 @@ class AppTextStyle {
   static get locationDistanceSmallTextStyle => GoogleFonts.openSans(
         color: AppColors.black,
         fontWeight: FontWeight.w600,
-        fontSize: 10,
+        fontSize: 14,
       );
   static get locationDistanceBigTextStyle => GoogleFonts.openSans(
         color: AppColors.black,
@@ -267,5 +273,27 @@ class AppTextStyle {
         color: Color(0xFF264488),
         fontWeight: FontWeight.w700,
         fontSize: 14,
+      );
+  static get doctorNameText => GoogleFonts.roboto(
+        color: AppColors.doctorNameColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      );
+
+  static get doctorDegreeText => GoogleFonts.roboto(
+        color: AppColors.doctorNameColor,
+        fontWeight: FontWeight.w300,
+        fontSize: 14,
+      );
+  static get splashScreenText => GoogleFonts.roboto(
+        color: AppColors.doctorNameColor,
+        fontWeight: FontWeight.w300,
+        fontSize: 20,
+      );
+
+  static get doctorExperienceText => GoogleFonts.roboto(
+        color: AppColors.doctorExperienceColor,
+        fontWeight: FontWeight.w300,
+        fontSize: 12,
       );
 }
