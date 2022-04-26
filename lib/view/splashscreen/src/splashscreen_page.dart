@@ -35,7 +35,7 @@ class SplashScreenPageState extends State<SplashScreenPage> {
   Route _createRoute() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          const LoginPage(),
+          const DiscoverServicesPage(),
       transitionDuration: const Duration(milliseconds: 1400),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
