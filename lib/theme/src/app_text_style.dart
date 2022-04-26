@@ -178,6 +178,12 @@ class AppTextStyle {
         fontSize: 14,
       );
 
+  static get textFieldHint2BlueTextStyle => GoogleFonts.roboto(
+        color: Color(0xFF264488),
+        fontWeight: FontWeight.w300,
+        fontSize: 14,
+      );
+
   ///DROPDOWN
   static get dropdownTextStyle => GoogleFonts.openSans(
         color: AppColors.black,

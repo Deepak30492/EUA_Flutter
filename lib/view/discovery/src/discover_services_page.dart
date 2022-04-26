@@ -87,79 +87,79 @@ class _DiscoverServicesPageState extends State<DiscoverServicesPage> {
               ),
 
               //Search bar
-              Container(
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: width,
-                      padding: const EdgeInsets.only(top: 25),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF264488),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.to(() => const BookATeleconsultationPage());
-                      },
-                      child: Center(
-                        child: Container(
-                          width: width * 0.94,
-                          height: height * 0.07,
-                          // padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: const [
-                              BoxShadow(
-                                offset: Offset(0, 10),
-                                blurRadius: 20,
-                                color: Color(0x1B1C204D),
-                              )
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: width * 0.8,
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: "Search services",
-                                    hintStyle:
-                                        AppTextStyle.textFieldHintTextStyle,
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: width * 0.14,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE8705A),
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(5),
-                                    topRight: Radius.circular(5),
-                                  ),
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.search,
-                                    size: 25,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   child: Stack(
+              //     clipBehavior: Clip.none,
+              //     children: [
+              //       Container(
+              //         width: width,
+              //         padding: const EdgeInsets.only(top: 25),
+              //         decoration: const BoxDecoration(
+              //           color: Color(0xFF264488),
+              //         ),
+              //       ),
+              //       InkWell(
+              //         onTap: () {
+              //           Get.to(() => const BookATeleconsultationPage());
+              //         },
+              //         child: Center(
+              //           child: Container(
+              //             width: width * 0.94,
+              //             height: height * 0.07,
+              //             // padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+              //             decoration: BoxDecoration(
+              //               color: Colors.white,
+              //               borderRadius: BorderRadius.circular(5),
+              //               boxShadow: const [
+              //                 BoxShadow(
+              //                   offset: Offset(0, 10),
+              //                   blurRadius: 20,
+              //                   color: Color(0x1B1C204D),
+              //                 )
+              //               ],
+              //             ),
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: [
+              //                 Container(
+              //                   width: width * 0.8,
+              //                   padding:
+              //                       const EdgeInsets.fromLTRB(20, 5, 20, 5),
+              //                   child: TextField(
+              //                     decoration: InputDecoration(
+              //                       hintText: "Search services",
+              //                       hintStyle:
+              //                           AppTextStyle.textFieldHintTextStyle,
+              //                       border: InputBorder.none,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 Container(
+              //                   width: width * 0.14,
+              //                   decoration: const BoxDecoration(
+              //                     color: Color(0xFFE8705A),
+              //                     borderRadius: BorderRadius.only(
+              //                       bottomRight: Radius.circular(5),
+              //                       topRight: Radius.circular(5),
+              //                     ),
+              //                   ),
+              //                   child: const Center(
+              //                     child: Icon(
+              //                       Icons.search,
+              //                       size: 25,
+              //                       color: Colors.white,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
 
               //Favourites
               Container(
@@ -191,111 +191,116 @@ class _DiscoverServicesPageState extends State<DiscoverServicesPage> {
                           return Spacing(size: 20);
                         },
                         itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Stack(
-                                alignment: Alignment.center,
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Container(
-                                    width: width * 0.34,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          offset: Offset(0, 10),
-                                          blurRadius: 15,
-                                          color: Color(0x1B1C204D),
-                                        )
-                                      ],
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: height * 0.13,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: Image.network(
-                                                "https://picsum.photos/200",
-                                              ).image,
-                                              fit: BoxFit.fill,
+                          return InkWell(
+                            onTap: () {
+                              Get.to(() => const BookATeleconsultationPage());
+                            },
+                            child: Column(
+                              children: [
+                                Stack(
+                                  alignment: Alignment.center,
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
+                                      width: width * 0.34,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(15),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            offset: Offset(0, 10),
+                                            blurRadius: 15,
+                                            color: Color(0x1B1C204D),
+                                          )
+                                        ],
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: height * 0.13,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: Image.network(
+                                                  "https://picsum.photos/200",
+                                                ).image,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Spacing(size: 30, isWidth: false),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 20),
-                                          child: Text(
-                                            "Teleconsultation",
-                                            style: AppTextStyle
-                                                .subHeading4TextStyle,
+                                          Spacing(size: 30, isWidth: false),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 20),
+                                            child: Text(
+                                              "Teleconsultation",
+                                              style: AppTextStyle
+                                                  .subHeading4TextStyle,
+                                            ),
                                           ),
-                                        ),
-                                        // Stack(
-                                        //   clipBehavior: Clip.none,
-                                        //   children: [
-                                        //     Container(
-                                        //       padding: EdgeInsets.only(top: 20),
-                                        //     ),
-                                        //     Center(
-                                        //       child: Container(
-                                        //         width: width * 0.12,
-                                        //         height: width * 0.12,
-                                        //         decoration: const BoxDecoration(
-                                        //           shape: BoxShape.circle,
-                                        //           color: Colors.white,
-                                        //           boxShadow: [
-                                        //             BoxShadow(
-                                        //               offset: Offset(0, 10),
-                                        //               blurRadius: 15,
-                                        //               color: Color(0x1B1C204D),
-                                        //             )
-                                        //           ],
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                      ],
+                                          // Stack(
+                                          //   clipBehavior: Clip.none,
+                                          //   children: [
+                                          //     Container(
+                                          //       padding: EdgeInsets.only(top: 20),
+                                          //     ),
+                                          //     Center(
+                                          //       child: Container(
+                                          //         width: width * 0.12,
+                                          //         height: width * 0.12,
+                                          //         decoration: const BoxDecoration(
+                                          //           shape: BoxShape.circle,
+                                          //           color: Colors.white,
+                                          //           boxShadow: [
+                                          //             BoxShadow(
+                                          //               offset: Offset(0, 10),
+                                          //               blurRadius: 15,
+                                          //               color: Color(0x1B1C204D),
+                                          //             )
+                                          //           ],
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 35),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: width * 0.12,
-                                          height: width * 0.12,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: Offset(0, 10),
-                                                blurRadius: 30,
-                                                color: Color(0x1B1C204D),
-                                              )
-                                            ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 35),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: width * 0.12,
+                                            height: width * 0.12,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset: Offset(0, 10),
+                                                  blurRadius: 30,
+                                                  color: Color(0x1B1C204D),
+                                                )
+                                              ],
+                                            ),
+                                            child: const Icon(
+                                              Icons.image_outlined,
+                                              size: 20,
+                                              color: Color(0xFFE8705A),
+                                            ),
                                           ),
-                                          child: const Icon(
-                                            Icons.image_outlined,
-                                            size: 20,
-                                            color: Color(0xFFE8705A),
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           );
                         },
                       ),

@@ -43,6 +43,10 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
     "Mumbai",
   ];
 
+  bool isToday = false;
+  bool isThisWeek = false;
+  bool isThisMonth = false;
+
   @override
   Widget build(BuildContext context) {
     ///ASSIGNING VALUES
@@ -95,7 +99,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "How do teleconsultation work?",
+                      "How do teleconsultations work?",
                       style: AppTextStyle.subHeading4LightTextStyle,
                     ),
                     Spacing(size: 15, isWidth: false),
@@ -141,7 +145,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Search using following parameters",
+                    "Find your doctor / health care provider",
                     style: AppTextStyle.heading4TextStyle,
                   ),
                   Spacing(size: 30, isWidth: false),
@@ -168,7 +172,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
                       });
                     },
                     hint: Text(
-                      "Specialities",
+                      "Speciality",
                       style: AppTextStyle.textFieldHint2TextStyle,
                     ),
                     items: _listOfSpecialitiesDropdownValue
@@ -280,7 +284,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
                       Expanded(
                         child: TextFormField(
                           decoration: InputDecoration(
-                            hintText: "Hospital",
+                            hintText: "Hospital/Clinic",
                             hintStyle: AppTextStyle.textFieldHint2TextStyle,
                             border: const UnderlineInputBorder(),
                           ),
@@ -301,45 +305,93 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
                         Spacing(isWidth: false),
                         Row(
                           children: [
-                            Container(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF264488),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                "Today",
-                                style:
-                                    AppTextStyle.textFieldHint2WhiteTextStyle,
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isToday = !isToday;
+                                });
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                decoration: BoxDecoration(
+                                  color: isToday
+                                      ? const Color(0xFF264488)
+                                      : Colors.white,
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color(0xFF264488),
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                  "Today",
+                                  style: isToday
+                                      ? AppTextStyle
+                                          .textFieldHint2WhiteTextStyle
+                                      : AppTextStyle
+                                          .textFieldHint2BlueTextStyle,
+                                ),
                               ),
                             ),
                             Spacing(size: 6),
-                            Container(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF264488),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                "This Week",
-                                style:
-                                    AppTextStyle.textFieldHint2WhiteTextStyle,
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isThisWeek = !isThisWeek;
+                                });
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                decoration: BoxDecoration(
+                                  color: isThisWeek
+                                      ? const Color(0xFF264488)
+                                      : Colors.white,
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color(0xFF264488),
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                  "This Week",
+                                  style: isThisWeek
+                                      ? AppTextStyle
+                                          .textFieldHint2WhiteTextStyle
+                                      : AppTextStyle
+                                          .textFieldHint2BlueTextStyle,
+                                ),
                               ),
                             ),
                             Spacing(size: 6),
-                            Container(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF264488),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                "This Month",
-                                style:
-                                    AppTextStyle.textFieldHint2WhiteTextStyle,
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isThisMonth = !isThisMonth;
+                                });
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                decoration: BoxDecoration(
+                                  color: isThisMonth
+                                      ? const Color(0xFF264488)
+                                      : Colors.white,
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color(0xFF264488),
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                  "This Month",
+                                  style: isThisMonth
+                                      ? AppTextStyle
+                                          .textFieldHint2WhiteTextStyle
+                                      : AppTextStyle
+                                          .textFieldHint2BlueTextStyle,
+                                ),
                               ),
                             ),
                           ],
