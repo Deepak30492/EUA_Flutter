@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/fulfillments/fulfillments.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class AppointmentHistoryPage extends StatefulWidget {
@@ -237,7 +236,7 @@ class _AppointmentHistoryPageState extends State<AppointmentHistoryPage> {
   buildDoctorTile() {
     return InkWell(
       onTap: () {
-        Get.to(() => const FulfillmentDetailsPage());
+        // Get.to(() => const FulfillmentDetailsPage());
       },
       child: Container(
         height: height * 0.16,

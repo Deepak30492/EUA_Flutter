@@ -8,11 +8,16 @@ class RequestUrls {
       "https://258b9ddd-7da3-4437-af3c-6d3a1e9926a3.mock.pstmn.io/api/v1/";
 
   ///URLS
-  static const String postSearchDetails = "${httpIpPort}search";
+  ///SEARCH API URL
+  static String postDiscoveryDetails = "${httpIpPort}search";
 
-  static const String postDoctorDetails = "${httpIpPort}select";
+  ///SELECT API URL
+  static String postFulfillmentDetails = "${httpIpPort}select";
 
-  static const String postBookingDetails = "${httpIpPort}confirm";
+  ///CONFIRM API URL
+  static String postBookingDetails = "${httpIpPort}confirm";
 
-  static const String getDetails = "${httpIpPort}";
+  ///GET URLS
+  ///Common GET URL for all APIs
+  static String getDetails = "${httpIpPort}message";
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/appointment_history/src/appointment_history_page.dart';
-import 'package:uhi_eua_flutter_app/view/search_results/src/search_results_page.dart';
-import 'package:uhi_eua_flutter_app/widgets/src/spacing.dart';
+import 'package:uhi_eua_flutter_app/view/view.dart';
+import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
 class BookATeleconsultationPage extends StatefulWidget {
   const BookATeleconsultationPage({Key? key}) : super(key: key);
@@ -408,7 +407,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
             Spacing(size: 20, isWidth: false),
             InkWell(
               onTap: () {
-                Get.to(() => SearchResultPage());
+                Get.to(() => DiscoveryResultsPage());
               },
               child: Container(
                 width: width * 0.86,

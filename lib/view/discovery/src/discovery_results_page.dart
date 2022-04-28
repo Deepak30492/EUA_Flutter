@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
-import 'package:uhi_eua_flutter_app/view/fulfillments/fulfillments.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
 
-class SearchResultPage extends StatefulWidget {
-  const SearchResultPage({Key? key}) : super(key: key);
+class DiscoveryResultsPage extends StatefulWidget {
+  const DiscoveryResultsPage({Key? key}) : super(key: key);
 
   @override
-  State<SearchResultPage> createState() => _SearchResultPageState();
+  State<DiscoveryResultsPage> createState() => _DiscoveryResultsPageState();
 }
 
-class _SearchResultPageState extends State<SearchResultPage> {
+class _DiscoveryResultsPageState extends State<DiscoveryResultsPage> {
   ///CONTROLLERS
   TextEditingController searchTextEditingController = TextEditingController();
   TextEditingController symptomsTextEditingController = TextEditingController();
@@ -443,7 +442,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
   buildDoctorTile() {
     return InkWell(
       onTap: () {
-        Get.to(() => const FulfillmentDetailsPage());
+        // Get.to(() => const FulfillmentDetailsPage());
       },
       child: Container(
         height: height * 0.16,
