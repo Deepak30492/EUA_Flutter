@@ -364,7 +364,7 @@ class _DiscoverServicesPageState extends State<DiscoverServicesPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            width: width * 0.2,
+                                            width: width * 0.14,
                                             height: width * 0.2,
                                             margin: EdgeInsets.only(top: 12),
                                             decoration: BoxDecoration(
@@ -553,7 +553,7 @@ class _DiscoverServicesPageState extends State<DiscoverServicesPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            width: width * 0.2,
+                                            width: width * 0.14,
                                             height: width * 0.2,
                                             margin: EdgeInsets.only(top: 12),
                                             decoration: BoxDecoration(
@@ -566,7 +566,7 @@ class _DiscoverServicesPageState extends State<DiscoverServicesPage> {
                                           ),
                                           Container(
                                             margin: const EdgeInsets.only(
-                                                left: 10, top: 20, right: 10),
+                                                left: 5, top: 20, right: 5),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,

@@ -76,68 +76,67 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
       ),
       body: Container(
         width: width,
+        margin: const EdgeInsets.all(24),
         height: height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
+          //mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Spacing(size: 30, isWidth: false),
-            Center(
-              child: Container(
-                width: width * 0.86,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                      offset: Offset(0, 5),
-                      blurRadius: 15,
-                      color: Color(0x1B1C204D),
-                    )
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "How do teleconsultations work?",
-                      style: AppTextStyle.subHeading4LightTextStyle,
-                    ),
-                    Spacing(size: 15, isWidth: false),
-                    Row(
-                      children: [
-                        Text(
-                          "Search\nDoctor",
-                          style: AppTextStyle.subHeading4MediumTextStyle,
-                        ),
-                        Spacing(size: 20),
-                        const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 22,
-                          color: Color(0xFF324755),
-                        ),
-                        Spacing(size: 20),
-                        Text(
-                          "Complete\nPayment",
-                          style: AppTextStyle.subHeading4MediumTextStyle,
-                        ),
-                        Spacing(size: 20),
-                        const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 22,
-                          color: Color(0xFF324755),
-                        ),
-                        Spacing(size: 20),
-                        Text(
-                          "Start\nConsultation",
-                          style: AppTextStyle.subHeading4MediumTextStyle,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            Container(
+              width: width * 0.86,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(0, 5),
+                    blurRadius: 15,
+                    color: Color(0x1B1C204D),
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "How do teleconsultations work?",
+                    style: AppTextStyle.subHeading4LightTextStyle,
+                  ),
+                  Spacing(size: 15, isWidth: false),
+                  Row(
+                    children: [
+                      Text(
+                        "Search\nDoctor",
+                        style: AppTextStyle.subHeading4MediumTextStyle,
+                      ),
+                      Spacing(size: 18),
+                      const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 22,
+                        color: Color(0xFF324755),
+                      ),
+                      Spacing(size: 18),
+                      Text(
+                        "Complete\nPayment",
+                        style: AppTextStyle.subHeading4MediumTextStyle,
+                      ),
+                      Spacing(size: 20),
+                      const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 22,
+                        color: Color(0xFF324755),
+                      ),
+                      Spacing(size: 20),
+                      Text(
+                        "Start\nConsultation",
+                        style: AppTextStyle.subHeading4MediumTextStyle,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             Spacing(size: 30, isWidth: false),
