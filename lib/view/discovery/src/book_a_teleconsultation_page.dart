@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uhi_eua_flutter_app/controller/controller.dart';
+import 'package:uhi_eua_flutter_app/model/model.dart';
 import 'package:uhi_eua_flutter_app/theme/theme.dart';
 import 'package:uhi_eua_flutter_app/view/view.dart';
 import 'package:uhi_eua_flutter_app/widgets/widgets.dart';
+import 'package:uuid/uuid.dart';
 
 class BookATeleconsultationPage extends StatefulWidget {
   const BookATeleconsultationPage({Key? key}) : super(key: key);
@@ -18,28 +24,34 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
   var height;
   var isPortrait;
 
+  ///CONTROLLERS
+  final _doctorNameOrIdTextEditingController = TextEditingController();
+  final _hospitalOrClinicTextEditingController = TextEditingController();
+  final _postDiscoveryDetailsController =
+      Get.put(PostDiscoveryDetailsController());
+
   ///DATA VARIABLES
-  String _specialitiesDropdownValue = "Physician";
+  String _specialitiesDropdownValue = "";
   final List<String> _listOfSpecialitiesDropdownValue = [
     "Physician",
     "Orthopedist",
     "Psychiatrist",
   ];
 
-  String _systemOfMedDropdownValue = "Internal";
+  String _systemOfMedDropdownValue = "";
   final List<String> _listOfSystemOfMedDropdownValue = [
     "Internal",
     "External",
   ];
 
-  String _languageDropdownValue = "English";
+  String _languageDropdownValue = "";
   final List<String> _listOfLanguageDropdownValue = [
     "English",
     "Hindi",
     "Marathi",
   ];
 
-  String _cityDropdownValue = "Pune";
+  String _cityDropdownValue = "";
   final List<String> _listOfCityDropdownValue = [
     "Pune",
     "Mumbai",
@@ -48,6 +60,8 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
   bool isToday = false;
   bool isThisWeek = false;
   bool isThisMonth = false;
+
+  String _uniqueId = "";
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +72,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: const Icon(
@@ -152,6 +167,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
                   ),
                   Spacing(size: 30, isWidth: false),
                   TextFormField(
+                    controller: _doctorNameOrIdTextEditingController,
                     decoration: InputDecoration(
                       hintText: "Doctors Name/HPID",
                       hintStyle: AppTextStyle.textFieldHint2TextStyle,
@@ -285,6 +301,7 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
                       Spacing(size: 20),
                       Expanded(
                         child: TextFormField(
+                          controller: _hospitalOrClinicTextEditingController,
                           decoration: InputDecoration(
                             hintText: "Hospital/Clinic",
                             hintStyle: AppTextStyle.textFieldHint2TextStyle,
@@ -407,7 +424,8 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
             Spacing(size: 20, isWidth: false),
             InkWell(
               onTap: () {
-                Get.to(() => DiscoveryResultsPage());
+                // Get.to(() => DiscoveryResultsPage());
+                callApis();
               },
               child: Container(
                 width: width * 0.86,
@@ -452,5 +470,122 @@ class _BookATeleconsultationPageState extends State<BookATeleconsultationPage> {
         ),
       ),
     );
+  }
+
+  callApis() {
+    if (_doctorNameOrIdTextEditingController.text.isEmpty) {
+      log("Please enter doctor name or id");
+    } else if (_doctorNameOrIdTextEditingController.text
+            .contains(RegExp(r'[0-9]')) &&
+        _specialitiesDropdownValue.isEmpty) {
+      log("Doctor ID");
+      createAckWithProfessionalId();
+    } else if (_doctorNameOrIdTextEditingController.text
+            .contains(RegExp(r'[a-zA-Z]')) &&
+        _specialitiesDropdownValue.isEmpty) {
+      log("Doctor Name");
+      createAckWithProfessionalName();
+    }
+
+    if (_doctorNameOrIdTextEditingController.text
+            .contains(RegExp(r'[a-zA-Z]')) &&
+        _specialitiesDropdownValue.isNotEmpty) {
+      log("doctor and speciality");
+    }
+
+    if (_specialitiesDropdownValue.isNotEmpty &&
+        _languageDropdownValue.isNotEmpty) {
+      log("speciality and language ${_languageDropdownValue}");
+    }
+
+    if (_systemOfMedDropdownValue.isNotEmpty &&
+        _languageDropdownValue.isNotEmpty) {
+      log("system of med and language");
+    }
+
+    if (_hospitalOrClinicTextEditingController.text.isEmpty) {
+      log("Please enter hospital name");
+    } else if (_hospitalOrClinicTextEditingController.text
+        .contains(RegExp(r'[a-zA-Z]'))) {
+      log("Doctor Name");
+    }
+  }
+
+  createAckWithProfessionalId() async {
+    _uniqueId = const Uuid().v1();
+
+    ContextModel contextModel = ContextModel();
+    contextModel.domain = "nic2004:85110";
+    contextModel.country = "IND";
+    contextModel.city = "std:080";
+    contextModel.action = "search";
+    contextModel.coreVersion = "0.7.1";
+    // contextModel.messageId = "85a422c4-2867-4d72-b5f5-d31588e2f7c5";
+    contextModel.messageId = _uniqueId;
+    contextModel.consumerId = "refrenceapp.123";
+    contextModel.consumerUri = "refrenceapp.123";
+    contextModel.timestamp = DateTime.now().toLocal().toUtc().toIso8601String();
+
+    HealthcareProfessionalIdRequestModel professionalIdRequestModel =
+        HealthcareProfessionalIdRequestModel();
+    HealthcareProfessionalIdMessage message = HealthcareProfessionalIdMessage();
+    HealthcareProfessionalIdIntent intent = HealthcareProfessionalIdIntent();
+    HealthcareProfessionalIdFulfillment fulfillment =
+        HealthcareProfessionalIdFulfillment();
+    HealthcareProfessionalIdPerson person = HealthcareProfessionalIdPerson();
+
+    professionalIdRequestModel.context = contextModel;
+    person.cred = _doctorNameOrIdTextEditingController.text;
+    fulfillment.person = person;
+    intent.fulfillment = fulfillment;
+    message.intent = intent;
+    professionalIdRequestModel.message = message;
+
+    log("==> ${jsonEncode(professionalIdRequestModel)}");
+
+    // await _postDiscoveryDetailsController.postDiscoveryDetails(
+    //     discoveryDetails: professionalIdRequestModel);
+  }
+
+  createAckWithProfessionalName() async {
+    _uniqueId = const Uuid().v1();
+
+    ContextModel contextModel = ContextModel();
+    contextModel.domain = "nic2004:85110";
+    contextModel.country = "IND";
+    contextModel.city = "std:080";
+    contextModel.action = "search";
+    contextModel.coreVersion = "0.7.1";
+    // contextModel.messageId = "85a422c4-2867-4d72-b5f5-d31588e2f7c5";
+    contextModel.messageId = _uniqueId;
+    contextModel.consumerId = "refrenceapp.123";
+    contextModel.consumerUri = "refrenceapp.123";
+    contextModel.timestamp = DateTime.now().toLocal().toUtc().toIso8601String();
+
+    HealthcareProfessionalNameRequestModel professionalNameRequestModel =
+        HealthcareProfessionalNameRequestModel();
+    HealthcareProfessionalNameMessage message =
+        HealthcareProfessionalNameMessage();
+    HealthcareProfessionalNameIntent intent =
+        HealthcareProfessionalNameIntent();
+    HealthcareProfessionalNameFulfillment fulfillment =
+        HealthcareProfessionalNameFulfillment();
+    HealthcareProfessionalNamePerson person =
+        HealthcareProfessionalNamePerson();
+    HealthcareProfessionalNameDescriptor descriptor =
+        HealthcareProfessionalNameDescriptor();
+
+    professionalNameRequestModel.context = contextModel;
+    descriptor.name = _doctorNameOrIdTextEditingController.text;
+    person.descriptor = descriptor;
+    fulfillment.person = person;
+    intent.fulfillment = fulfillment;
+    message.intent = intent;
+    professionalNameRequestModel.message = message;
+
+    log("==> ${jsonEncode(professionalNameRequestModel)}");
+
+    // await _postDiscoveryDetailsController.postDiscoveryDetails(
+    //     discoveryDetails: professionalNameRequestModel);
   }
 }
